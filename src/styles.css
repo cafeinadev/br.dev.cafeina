@@ -547,6 +547,72 @@ a {
   max-width: 44rem;
 }
 
+.section--showcase {
+  padding-block: var(--cd-space-64);
+}
+
+.showcase-grid {
+  display: grid;
+  gap: var(--cd-space-24);
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin: var(--cd-space-32) 0 0;
+  padding: 0;
+}
+
+.showcase-grid--quad {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.showcase-card {
+  display: flex;
+}
+
+.showcase-card figure {
+  background: var(--cd-color-surface-elevated-dark);
+  border: var(--cd-stroke-hairline) solid var(--cd-color-border-on-dark);
+  border-radius: var(--cd-radius-md);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  transition: border-color 160ms ease, transform 160ms ease;
+  width: 100%;
+}
+
+.showcase-card:hover figure {
+  border-color: var(--cd-color-border-on-dark-strong);
+  transform: translateY(-2px);
+}
+
+.showcase-card__image {
+  aspect-ratio: 4 / 3;
+  background: var(--cd-color-background-page);
+  object-fit: cover;
+  width: 100%;
+}
+
+.showcase-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cd-space-12);
+  padding: var(--cd-space-24);
+}
+
+.showcase-card__caption {
+  color: var(--cd-color-brand-energy);
+  font-size: 0.78rem;
+  font-weight: var(--cd-font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.showcase-card figcaption p {
+  color: var(--cd-color-text-muted-on-dark);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
 .section--channels {
   padding-bottom: var(--cd-space-96);
 }
@@ -666,7 +732,8 @@ a {
   .proof-strip,
   .capability-grid,
   .channel-grid,
-  .audience-list {
+  .audience-list,
+  .showcase-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -736,7 +803,8 @@ a {
   .proof-strip,
   .capability-grid,
   .channel-grid,
-  .audience-list {
+  .audience-list,
+  .showcase-grid {
     grid-template-columns: 1fr;
   }
 

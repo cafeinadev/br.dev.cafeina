@@ -10,6 +10,8 @@
       <nav class="site-nav" aria-label="Seções da página">
         <a href="#metodo">Método</a>
         <a href="#manifesto">Manifesto</a>
+        <a href="#identidade">Identidade</a>
+        <a href="#material">Material</a>
         <a href="#canais">Canais</a>
       </nav>
     </div>
@@ -131,10 +133,68 @@
       </div>
     </section>
 
+    <section class="section section--showcase" id="identidade" aria-labelledby="identidade-title">
+      <div class="section__header">
+        <p class="eyebrow">Identidade aplicada</p>
+        <h2 id="identidade-title">A mesma assinatura em qualquer superfície digital.</h2>
+      </div>
+
+      <ul class="showcase-grid showcase-grid--quad" role="list">
+        @for (item of digitalShowcase(); track item.src) {
+          <li class="showcase-card">
+            <figure>
+              <img
+                class="showcase-card__image"
+                [ngSrc]="item.src"
+                ngSrcset="800w, 1600w"
+                sizes="(max-width: 900px) 92vw, 25vw"
+                [width]="item.width"
+                [height]="item.height"
+                [alt]="item.alt"
+              />
+              <figcaption>
+                <span class="showcase-card__caption">{{ item.caption }}</span>
+                <p>{{ item.description }}</p>
+              </figcaption>
+            </figure>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="section section--showcase" id="material" aria-labelledby="material-title">
+      <div class="section__header">
+        <p class="eyebrow">Material físico</p>
+        <h2 id="material-title">Do código ao objeto: a marca em superfícies reais.</h2>
+      </div>
+
+      <ul class="showcase-grid showcase-grid--quad" role="list">
+        @for (item of physicalShowcase(); track item.src) {
+          <li class="showcase-card">
+            <figure>
+              <img
+                class="showcase-card__image"
+                [ngSrc]="item.src"
+                ngSrcset="800w, 1600w"
+                sizes="(max-width: 900px) 92vw, 25vw"
+                [width]="item.width"
+                [height]="item.height"
+                [alt]="item.alt"
+              />
+              <figcaption>
+                <span class="showcase-card__caption">{{ item.caption }}</span>
+                <p>{{ item.description }}</p>
+              </figcaption>
+            </figure>
+          </li>
+        }
+      </ul>
+    </section>
+
     <section class="section section--channels" id="canais" aria-labelledby="canais-title">
       <div class="section__header">
         <p class="eyebrow">Canais</p>
-        <h2 id="canais-title">Acompanhe, leia, assista ou chame para conversar.</h2>
+        <h2 id="canais-title">Por onde a conversa segue.</h2>
       </div>
 
       <div class="channel-grid">
