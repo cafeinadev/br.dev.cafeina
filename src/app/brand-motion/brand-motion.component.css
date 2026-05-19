@@ -1,0 +1,87 @@
+:host {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+}
+
+.bm-stage {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.bm-bolt {
+  filter: drop-shadow(0 0 18px rgba(253, 218, 13, 0.55));
+  flex-shrink: 0;
+  height: auto;
+  width: auto;
+}
+
+.bm-logo {
+  --bm-clip: 0%;
+  clip-path: inset(0 var(--bm-clip) 0 0);
+  flex-shrink: 0;
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
+
+/* Hero variant — large, dramatic */
+:host(.brand-motion--hero) .bm-stage {
+  gap: clamp(0.5rem, 1.5vw, 1.25rem);
+}
+
+:host(.brand-motion--hero) .bm-bolt {
+  height: clamp(72px, 13vw, 130px);
+  width: auto;
+}
+
+:host(.brand-motion--hero) .bm-logo {
+  height: clamp(48px, 8.5vw, 88px);
+  width: auto;
+}
+
+/* Header variant — compact, calm */
+:host(.brand-motion--header) .bm-stage {
+  gap: 0.4rem;
+}
+
+:host(.brand-motion--header) .bm-bolt {
+  height: 32px;
+  width: auto;
+  filter: drop-shadow(0 0 8px rgba(253, 218, 13, 0.45));
+}
+
+:host(.brand-motion--header) .bm-logo {
+  height: 28px;
+  width: auto;
+}
+
+/* Reduced motion + mobile header collapse — show only the final brand */
+@media (prefers-reduced-motion: reduce) {
+  .bm-bolt {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  :host(.brand-motion--header) .bm-bolt {
+    display: none;
+  }
+
+  /* Hero: encolher para caber sem overflow */
+  :host(.brand-motion--hero) .bm-bolt {
+    height: 56px;
+  }
+
+  :host(.brand-motion--hero) .bm-logo {
+    height: 36px;
+  }
+
+  :host(.brand-motion--hero) .bm-stage {
+    gap: 0.5rem;
+    max-width: 100%;
+  }
+}

@@ -1,5 +1,5 @@
-import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { BrandMotionComponent } from './brand-motion/brand-motion.component';
 
 interface ExternalLink {
   readonly label: string;
@@ -15,65 +15,80 @@ interface FeatureItem {
 interface ChannelLink extends ExternalLink {
   readonly eyebrow: string;
   readonly description: string;
+  readonly cta: string;
 }
 
 @Component({
   selector: 'app-root',
-  imports: [NgOptimizedImage],
+  imports: [BrandMotionComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  protected readonly brandStatement = signal('Cafeína Dev: engenharia de software avançada');
-  protected readonly heroTitle = signal('Cafeína Dev');
+  protected readonly heroEyebrow = signal('Engenharia de software B2B');
   protected readonly heroDescription = signal(
-    'Do diagnóstico à integração, transformo ecossistemas digitais em fluxo, clareza e capacidade ☕️⚡️👨‍💻',
+    'A Cafeína Dev remove o ruído entre produto, engenharia e operação. Sobra clareza, cadência e capacidade — onde antes havia retrabalho.',
   );
 
   protected readonly primaryCta = signal<ExternalLink>({
-    label: 'Falar no Instagram',
-    href: 'https://www.instagram.com/cafeina_dev/',
-    ariaLabel: 'Falar com a Cafeína Dev no Instagram',
+    label: 'Chama no direct',
+    href: 'https://www.instagram.com/direct/t/17843543157605800/',
+    ariaLabel: 'Chamar a Cafeína Dev no Instagram Direct',
   });
 
   protected readonly secondaryCta = signal<ExternalLink>({
-    label: 'Conectar no LinkedIn',
-    href: 'https://www.linkedin.com/in/thbezerra/',
-    ariaLabel: 'Conectar com Thiago Bezerra no LinkedIn',
+    label: 'Ver no GitHub',
+    href: 'https://github.com/cafeinadesign',
+    ariaLabel: 'Abrir organização Cafeína no GitHub',
   });
 
-  protected readonly proofPoints = signal<readonly FeatureItem[]>([
+  protected readonly pillars = signal<readonly FeatureItem[]>([
     {
-      title: 'Diagnóstico',
-      copy: 'Mapeio gargalos reais antes de propor qualquer mudança.',
+      title: 'Sem fábrica de feature',
+      copy: 'Backlog vira-lata vira dívida. A gente entrega sistema que respira.',
     },
     {
-      title: 'Fluxo',
-      copy: 'Organizo decisões, cadência e feedback para reduzir atrito.',
+      title: 'Sem teatro de processo',
+      copy: 'Cerimônia que não decide é desperdício. Cadência sim, ritual não.',
     },
     {
-      title: 'Integração',
-      copy: 'Conecto produto, engenharia e operação com clareza técnica.',
+      title: 'Sem dívida invisível',
+      copy: 'A arquitetura grita o que o roadmap esconde. A gente escuta antes.',
     },
   ]);
 
   protected readonly capabilities = signal<readonly FeatureItem[]>([
     {
       title: 'Arquitetura evolutiva',
-      copy: 'Estruturas que deixam o sistema legível, testável e pronto para crescer.',
+      copy: 'Sistemas que crescem sem te prender em decisões antigas.',
     },
     {
       title: 'Extreme Programming',
-      copy: 'Práticas de engenharia que encurtam ciclos e protegem a qualidade.',
+      copy: 'Práticas que protegem a qualidade a cada commit, não a cada release.',
     },
     {
       title: 'OKRs aplicáveis',
-      copy: 'Objetivos traduzidos em decisões técnicas, métricas e aprendizado.',
+      copy: 'Objetivos que viram decisão técnica, não slide morto na próxima reunião.',
     },
     {
       title: 'Integração ponta a ponta',
-      copy: 'Do diagnóstico à entrega, com menos ruído entre estratégia e execução.',
+      copy: 'Produto, engenharia e operação falando a mesma língua.',
+    },
+  ]);
+
+  protected readonly audiences = signal<readonly FeatureItem[]>([
+    {
+      title: 'CTOs e VPs de Engenharia',
+      copy: 'Escalando time sem perder consistência técnica.',
+    },
+    {
+      title: 'Heads de Produto',
+      copy: 'Que querem ciclos curtos com qualidade previsível.',
+    },
+    {
+      title: 'Founders técnicos',
+      copy: 'Com gargalo de entrega trancando o crescimento.',
     },
   ]);
 
@@ -82,31 +97,47 @@ export class App {
       eyebrow: 'Comunidade',
       label: 'Instagram',
       href: 'https://www.instagram.com/cafeina_dev/',
-      description: 'Bastidores, ideias curtas e conversas sobre engenharia.',
+      description: 'Bastidores, leituras curtas e provocações sobre engenharia.',
       ariaLabel: 'Abrir Instagram da Cafeína Dev',
+      cta: 'Seguir →',
+    },
+    {
+      eyebrow: 'Engenharia aberta',
+      label: 'GitHub',
+      href: 'https://github.com/cafeinadesign',
+      description: 'Código, padrões e referências que usamos no dia a dia.',
+      ariaLabel: 'Abrir organização Cafeína no GitHub',
+      cta: 'Explorar →',
     },
     {
       eyebrow: 'Ensaios',
       label: 'Medium',
       href: 'https://thiagoprazeres.medium.com/',
-      description: 'Textos sobre software, liderança técnica e fluxo.',
+      description: 'Textos longos sobre arquitetura, liderança técnica e fluxo.',
       ariaLabel: 'Abrir Medium de Thiago Prazeres',
+      cta: 'Ler →',
     },
     {
       eyebrow: 'Vídeo',
       label: 'YouTube',
       href: 'https://www.youtube.com/@cafeina_dev',
-      description: 'Conteúdo em vídeo para aprofundar práticas e decisões.',
+      description: 'Conversas e demos para aprofundar prática.',
       ariaLabel: 'Abrir YouTube da Cafeína Dev',
+      cta: 'Assistir →',
     },
     {
       eyebrow: 'Rede',
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/thbezerra/',
-      description: 'Contato profissional, projetos e conversas de parceria.',
-      ariaLabel: 'Abrir LinkedIn de Thiago Bezerra',
+      description: 'Contato profissional, parcerias e propostas.',
+      ariaLabel: 'Conectar com Thiago Bezerra no LinkedIn',
+      cta: 'Conectar →',
     },
   ]);
 
-  protected readonly tags = signal<readonly string[]>(['#extremeprogramming', '#okr']);
+  protected readonly tags = signal<readonly string[]>([
+    '#ExtremeProgramming',
+    '#OKR',
+    '#ArquiteturaEvolutiva',
+  ]);
 }
