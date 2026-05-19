@@ -3,8 +3,7 @@
   publish = "dist/br.dev.cafeina/browser"
 
 [build.environment]
-  NODE_VERSION = "22.16.0"
-  NPM_VERSION = "11.12.1"
+  NODE_VERSION = "22"
 
 [[headers]]
   for = "/*"
