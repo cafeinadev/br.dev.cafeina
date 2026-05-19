@@ -34,15 +34,15 @@ export class BrandMotionComponent {
 
   constructor() {
     afterNextRender(async () => {
+      if (this.variant() === 'header') {
+        return;
+      }
+
       const reduce =
         typeof matchMedia === 'function' &&
         matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const collapseOnMobile =
-        this.variant() === 'header' &&
-        typeof matchMedia === 'function' &&
-        matchMedia('(max-width: 640px)').matches;
 
-      if (reduce || collapseOnMobile) {
+      if (reduce) {
         return;
       }
 
@@ -55,17 +55,13 @@ export class BrandMotionComponent {
         return;
       }
 
-      const v = this.variant();
-      const pause = v === 'hero' ? 3 : 8;
-      const speed = v === 'hero' ? 1 : 1.4;
-      const fadeOut = v === 'hero' ? 0.7 : 0.5;
-
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
+      const tl = gsap.timeline();
 
       /*
        * Raio sobreposto: ele entra primeiro, com over-shoot e glow forte,
        * e fica fixo no espaço negativo do símbolo. O logo então faz wipe
-       * por cima/em torno, "envolvendo" o raio. Pausa no estado final.
+       * por cima/em torno, "envolvendo" o raio. No final o raio some,
+       * deixando só a marca.
        */
       tl.set(root, { opacity: 1 })
         .set(bolt, {
@@ -83,7 +79,7 @@ export class BrandMotionComponent {
           scale: 1.25,
           opacity: 1,
           rotate: 0,
-          duration: 0.45 / speed,
+          duration: 0.45,
           ease: 'back.out(2.4)',
         })
         .to(
@@ -91,7 +87,7 @@ export class BrandMotionComponent {
           {
             scale: 1,
             filter: 'drop-shadow(0 0 14px rgba(253, 218, 13, 0.55))',
-            duration: 0.4 / speed,
+            duration: 0.4,
             ease: 'power2.out',
           },
           '+=0.05',
@@ -101,15 +97,15 @@ export class BrandMotionComponent {
           {
             '--bm-clip': '0%',
             opacity: 1,
-            duration: 0.75 / speed,
+            duration: 0.75,
             ease: 'power3.out',
           },
           '-=0.3',
         )
-        .to({}, { duration: pause })
-        .to([logo, bolt], {
+        .to({}, { duration: 3 })
+        .to(bolt, {
           opacity: 0,
-          duration: fadeOut,
+          duration: 0.7,
           ease: 'power2.inOut',
         });
 
