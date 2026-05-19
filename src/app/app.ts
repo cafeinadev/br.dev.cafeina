@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { BrandMotionComponent } from './brand-motion/brand-motion.component';
 
@@ -18,9 +19,18 @@ interface ChannelLink extends ExternalLink {
   readonly cta: string;
 }
 
+interface ShowcaseItem {
+  readonly src: string;
+  readonly alt: string;
+  readonly caption: string;
+  readonly description: string;
+  readonly width: number;
+  readonly height: number;
+}
+
 @Component({
   selector: 'app-root',
-  imports: [BrandMotionComponent],
+  imports: [BrandMotionComponent, NgOptimizedImage],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -139,5 +149,75 @@ export class App {
     '#ExtremeProgramming',
     '#OKR',
     '#ArquiteturaEvolutiva',
+  ]);
+
+  protected readonly digitalShowcase = signal<readonly ShowcaseItem[]>([
+    {
+      src: '/brand/mockups/macbook-site-1600.webp',
+      alt: 'MacBook Pro exibindo a landing page da Cafeína Dev.',
+      caption: 'Web',
+      description: 'A própria landing rodando: tipografia firme, contraste alto, leitura em qualquer monitor.',
+      width: 1600,
+      height: 1069,
+    },
+    {
+      src: '/brand/mockups/iphone-showcase-1600.webp',
+      alt: 'Marca Cafeína Dev aplicada em mockup de iPhone exibindo a landing page.',
+      caption: 'Mobile',
+      description: 'Layout responsivo: a mesma narrativa, calibrada para a leitura na palma da mão.',
+      width: 1600,
+      height: 1074,
+    },
+    {
+      src: '/brand/mockups/ios-app-1600.webp',
+      alt: 'Ícone da Cafeína Dev em uma tela inicial de aplicativo iOS.',
+      caption: 'App',
+      description: 'Identidade que se sustenta como ícone: traço amarelo, fundo grafite, leitura imediata.',
+      width: 1600,
+      height: 1600,
+    },
+    {
+      src: '/brand/mockups/subway-led-1600.webp',
+      alt: 'Painel LED de metrô exibindo a marca Cafeína Dev em ambiente urbano.',
+      caption: 'Outdoor',
+      description: 'Da plataforma ao painel LED: a mesma assinatura visual em qualquer escala.',
+      width: 1600,
+      height: 1200,
+    },
+  ]);
+
+  protected readonly physicalShowcase = signal<readonly ShowcaseItem[]>([
+    {
+      src: '/brand/mockups/paper-card-1600.webp',
+      alt: 'Cartões de visita Cafeína Dev sobre superfície clara, com marca em amarelo e grafite.',
+      caption: 'Cartão',
+      description: 'Tipografia firme, hierarquia limpa: o primeiro contato profissional cabe na mão.',
+      width: 1600,
+      height: 1067,
+    },
+    {
+      src: '/brand/mockups/notebooks-1600.webp',
+      alt: 'Cadernos com capa estampada pela identidade da Cafeína Dev.',
+      caption: 'Caderno',
+      description: 'A marca como objeto de trabalho — capa que acompanha a rotina de quem cria.',
+      width: 1600,
+      height: 1200,
+    },
+    {
+      src: '/brand/mockups/caneca-1600.webp',
+      alt: 'Caneca preta com a marca Cafeína Dev estampada em amarelo.',
+      caption: 'Caneca',
+      description: 'Cafeína literal: o ritual da xícara carregando o mesmo traço da assinatura.',
+      width: 1600,
+      height: 1200,
+    },
+    {
+      src: '/brand/mockups/camisa-1600.webp',
+      alt: 'Camiseta preta com a marca Cafeína Dev estampada no peito.',
+      caption: 'Vestuário',
+      description: 'A identidade vestida — coerência do digital ao tecido, sem perder o tom.',
+      width: 1600,
+      height: 1417,
+    },
   ]);
 }
