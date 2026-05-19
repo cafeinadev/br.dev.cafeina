@@ -1,0 +1,75 @@
+:host {
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
+}
+
+.bm-stage {
+  display: inline-block;
+  position: relative;
+}
+
+.bm-logo {
+  --bm-clip: 0%;
+  clip-path: inset(0 var(--bm-clip) 0 0);
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
+
+/*
+ * O raio fica sobreposto na área do símbolo (primeiros ~17% da largura do logo),
+ * ocupando o espaço negativo do hexágono. Posicionado em absoluto sobre o logo.
+ */
+.bm-bolt {
+  filter: drop-shadow(0 0 18px rgba(253, 218, 13, 0.55));
+  height: auto;
+  left: 8.3%;
+  pointer-events: none;
+  position: absolute;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  z-index: 1;
+}
+
+/* Hero variant — large, dramatic */
+:host(.brand-motion--hero) .bm-logo {
+  height: clamp(64px, 11vw, 120px);
+}
+
+:host(.brand-motion--hero) .bm-bolt {
+  height: clamp(38px, 6.5vw, 70px);
+}
+
+/* Header variant — compact, calm */
+:host(.brand-motion--header) .bm-logo {
+  height: 32px;
+}
+
+:host(.brand-motion--header) .bm-bolt {
+  filter: drop-shadow(0 0 6px rgba(253, 218, 13, 0.5));
+  height: 18px;
+}
+
+/* Reduced motion — só a marca final, sem raio piscando */
+@media (prefers-reduced-motion: reduce) {
+  .bm-bolt {
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 640px) {
+  :host(.brand-motion--header) .bm-bolt {
+    display: none;
+  }
+
+  :host(.brand-motion--hero) .bm-logo {
+    height: 44px;
+  }
+
+  :host(.brand-motion--hero) .bm-bolt {
+    height: 26px;
+  }
+}
