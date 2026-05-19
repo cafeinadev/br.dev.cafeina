@@ -62,45 +62,49 @@ export class BrandMotionComponent {
 
       const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
+      /*
+       * Raio sobreposto: ele entra primeiro, com over-shoot e glow forte,
+       * e fica fixo no espaço negativo do símbolo. O logo então faz wipe
+       * por cima/em torno, "envolvendo" o raio. Pausa no estado final.
+       */
       tl.set(root, { opacity: 1 })
         .set(bolt, {
           transformOrigin: '50% 50%',
           scale: 0,
           opacity: 0,
-          rotate: -8,
+          rotate: -10,
+          filter: 'drop-shadow(0 0 28px rgba(253, 218, 13, 0.9))',
         })
         .set(logo, {
           '--bm-clip': '100%',
           opacity: 0,
-          scale: 0.96,
         })
         .to(bolt, {
-          scale: 1,
+          scale: 1.25,
           opacity: 1,
           rotate: 0,
-          duration: 0.5 / speed,
-          ease: 'back.out(2.2)',
+          duration: 0.45 / speed,
+          ease: 'back.out(2.4)',
         })
         .to(
           bolt,
           {
-            scale: 0.35,
-            opacity: 0.15,
-            duration: 0.6 / speed,
-            ease: 'power2.inOut',
+            scale: 1,
+            filter: 'drop-shadow(0 0 14px rgba(253, 218, 13, 0.55))',
+            duration: 0.4 / speed,
+            ease: 'power2.out',
           },
-          '+=0.1',
+          '+=0.05',
         )
         .to(
           logo,
           {
             '--bm-clip': '0%',
             opacity: 1,
-            scale: 1,
-            duration: 0.8 / speed,
+            duration: 0.75 / speed,
             ease: 'power3.out',
           },
-          '-=0.45',
+          '-=0.3',
         )
         .to({}, { duration: pause })
         .to([logo, bolt], {
