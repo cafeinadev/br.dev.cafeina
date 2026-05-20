@@ -2,7 +2,7 @@ version: "1"
 
 services:
   - type: web
-    name: penpot-frontend
+    name: penpot-frontend-fixed
     runtime: docker
     repo: https://github.com/cafeinadev/br.dev.cafeina
     branch: main
@@ -17,30 +17,29 @@ services:
       - key: PENPOT_PUBLIC_URI
         value: https://penpot.cafeina.dev.br
       - key: PENPOT_BACKEND_URI
-        value: https://penpot-backend-aotb.onrender.com
+        value: https://penpot-backend-fixed.onrender.com
       - key: PENPOT_EXPORTER_URI
-        value: https://penpot-backend-aotb.onrender.com
+        value: https://penpot-backend-fixed.onrender.com
       - key: PENPOT_NITRATE_URI
-        value: https://penpot-backend-aotb.onrender.com
+        value: https://penpot-backend-fixed.onrender.com
       - key: PENPOT_MCP_URI
-        value: https://penpot-backend-aotb.onrender.com
+        value: https://penpot-backend-fixed.onrender.com
       - key: PENPOT_MCP_URI_WS
-        value: https://penpot-backend-aotb.onrender.com
+        value: https://penpot-backend-fixed.onrender.com
       - key: PENPOT_FLAGS
         value: disable-registration enable-secure-session-cookies
       - key: PENPOT_HTTP_SERVER_MAX_BODY_SIZE
         value: "367001600"
 
   - type: web
-    name: penpot-backend
-    runtime: image
-    image:
-      url: docker.io/penpotapp/backend:2.15.3
-    dockerCommand: >
-      cd /opt/penpot/backend && export JAVA_OPTS="-Dim4java.useV7=true -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager -Dlog4j2.configurationFile=log4j2.xml -XX:-OmitStackTraceInFastThrow --sun-misc-unsafe-memory-access=allow --enable-native-access=ALL-UNNAMED --enable-preview $JVM_OPTS $JAVA_OPTS" && exec java $JAVA_OPTS -cp penpot.jar clojure.main -e "(require (quote app.main))(app.main/start)(deref (promise))"
+    name: penpot-backend-fixed
+    runtime: docker
+    repo: https://github.com/cafeinadev/br.dev.cafeina
+    branch: main
+    rootDir: render/penpot/backend
     region: virginia
     plan: free
-    autoDeploy: true
+    autoDeployTrigger: commit
     healthCheckPath: /readyz
     envVars:
       - key: PORT
