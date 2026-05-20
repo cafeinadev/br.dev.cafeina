@@ -424,6 +424,43 @@
       </div>
     </section>
 
+    <section id="aplicacoes" aria-labelledby="aplicacoes-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">09 — Aplicações</p>
+        <h2 id="aplicacoes-title">Aplicações</h2>
+      </div>
+      <p class="ds__section-intro">
+        A identidade aplicada em superfícies reais — do digital ao objeto físico — e
+        nas peças gráficas de comunicação.
+      </p>
+
+      <h3 class="ds__subhead">Mockups</h3>
+      <ul class="ds__shots" role="list">
+        @for (shot of mockups; track shot.src) {
+          <li class="ds__shot">
+            <img [src]="shot.src" [alt]="'Mockup — ' + shot.name" loading="lazy" />
+            <div class="ds__shot-info">
+              <h4>{{ shot.name }}</h4>
+              <p>{{ shot.note }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+
+      <h3 class="ds__subhead">Peças gráficas</h3>
+      <ul class="ds__shots ds__shots--wide" role="list">
+        @for (shot of pecas; track shot.src) {
+          <li class="ds__shot">
+            <img [src]="shot.src" [alt]="shot.name" loading="lazy" />
+            <div class="ds__shot-info">
+              <h4>{{ shot.name }}</h4>
+              <p>{{ shot.note }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+    </section>
+
     <footer class="ds__footer">
       <p>© 2026 Cafeína Dev — Design System. Engenharia que se nota.</p>
     </footer>

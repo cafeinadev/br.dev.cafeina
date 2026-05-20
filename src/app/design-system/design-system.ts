@@ -58,6 +58,12 @@ interface GuidelineItem {
   readonly copy: string;
 }
 
+interface ShowcaseShot {
+  readonly name: string;
+  readonly note: string;
+  readonly src: string;
+}
+
 @Component({
   selector: 'app-design-system',
   imports: [BrandMotionComponent],
@@ -81,6 +87,7 @@ export class DesignSystem {
     { id: 'grid', label: 'Grid & espaçamento' },
     { id: 'movimento', label: 'Movimento' },
     { id: 'componentes', label: 'Componentes' },
+    { id: 'aplicacoes', label: 'Aplicações' },
   ];
 
   protected readonly principles: readonly GuidelineItem[] = [
@@ -335,6 +342,62 @@ export class DesignSystem {
     { token: '--cd-radius-sm', rem: '0.25rem', px: 4 },
     { token: '--cd-radius-md', rem: '0.5rem', px: 8 },
     { token: '--cd-radius-pill', rem: '999px', px: 999 },
+  ];
+
+  protected readonly mockups: readonly ShowcaseShot[] = [
+    {
+      name: 'Web',
+      note: 'A landing rodando em desktop.',
+      src: '/brand/mockups/macbook-site-1600.webp',
+    },
+    {
+      name: 'Mobile',
+      note: 'Layout responsivo na palma da mão.',
+      src: '/brand/mockups/iphone-showcase-1600.webp',
+    },
+    {
+      name: 'App',
+      note: 'O símbolo como ícone de aplicativo iOS.',
+      src: '/brand/mockups/ios-app-1600.webp',
+    },
+    {
+      name: 'Grande formato',
+      note: 'A marca em painel LED de ambiente urbano.',
+      src: '/brand/mockups/subway-led-1600.webp',
+    },
+    {
+      name: 'Cartão',
+      note: 'Papelaria — cartão de visita.',
+      src: '/brand/mockups/paper-card-1600.webp',
+    },
+    {
+      name: 'Caderno',
+      note: 'Capa de caderno institucional.',
+      src: '/brand/mockups/notebooks-1600.webp',
+    },
+    {
+      name: 'Caneca',
+      note: 'Brinde — caneca da marca.',
+      src: '/brand/mockups/caneca-1600.webp',
+    },
+    {
+      name: 'Vestuário',
+      note: 'Camiseta com a marca aplicada.',
+      src: '/brand/mockups/camisa-1600.webp',
+    },
+  ];
+
+  protected readonly pecas: readonly ShowcaseShot[] = [
+    {
+      name: 'Banner — Facebook',
+      note: 'Capa para a página no Facebook.',
+      src: '/brand/pecas/banner-facebook.jpg',
+    },
+    {
+      name: 'Banner — YouTube',
+      note: 'Arte de canal do YouTube.',
+      src: '/brand/pecas/banner-youtube.jpg',
+    },
   ];
 
   constructor() {
