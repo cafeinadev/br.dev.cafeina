@@ -1,7 +1,4 @@
-:host {
-  display: block;
-  background: var(--cd-color-background-page);
-}
+@import '../shared/tokens.css';
 
 .ds-skip {
   background: var(--cd-color-brand-energy);
@@ -358,7 +355,7 @@ section:last-of-type {
   color: var(--cd-color-brand-energy);
 }
 
-/* ---------- Typography ---------- */
+/* ---------- Tipografia ---------- */
 .ds__type-specimen {
   display: flex;
   align-items: center;
@@ -590,7 +587,7 @@ section:last-of-type {
   max-width: 22rem;
 }
 
-/* ---------- Don'ts ---------- */
+/* ---------- Usos vetados ---------- */
 .ds__dont-list {
   list-style: none;
   margin: 0;
@@ -635,7 +632,7 @@ section:last-of-type {
   color: var(--cd-color-text-muted-on-dark);
 }
 
-/* ---------- Scales ---------- */
+/* ---------- Escalas ---------- */
 .ds__scale-list,
 .ds__radius-list {
   list-style: none;
@@ -673,7 +670,7 @@ section:last-of-type {
   border: var(--cd-stroke-hairline) solid var(--cd-color-border-on-dark-strong);
 }
 
-/* ---------- Motion ---------- */
+/* ---------- Movimento ---------- */
 .ds__motion-stage {
   display: flex;
   align-items: center;
@@ -682,6 +679,47 @@ section:last-of-type {
   background: var(--cd-color-neutral-black);
   border: var(--cd-stroke-hairline) solid var(--cd-color-border-on-dark);
   border-radius: var(--cd-radius-md);
+}
+
+.ds-motion {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 13rem;
+  height: 13rem;
+}
+
+.ds-motion__glow {
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 218, 13, 0.4), transparent 65%);
+  filter: blur(30px);
+}
+
+.ds-motion__hex {
+  position: relative;
+  z-index: 1;
+  width: 9rem;
+  filter: drop-shadow(0 0 26px rgba(253, 218, 13, 0.55));
+}
+
+.ds-motion__hex img {
+  width: 100%;
+}
+
+.ds-motion__raio {
+  position: absolute;
+  z-index: 2;
+  top: 14%;
+  right: 22%;
+  width: 2.4rem;
+  filter: drop-shadow(0 0 12px rgba(253, 218, 13, 0.9));
+}
+
+.ds-motion__raio img {
+  width: 100%;
 }
 
 .ds__motion-steps {
@@ -694,7 +732,7 @@ section:last-of-type {
   line-height: var(--cd-line-height-relaxed);
 }
 
-/* ---------- Component demos ---------- */
+/* ---------- Demos de componentes ---------- */
 .ds__demo {
   padding: var(--cd-space-32);
   background: var(--cd-color-surface-elevated-dark);
@@ -785,7 +823,7 @@ section:last-of-type {
   line-height: var(--cd-line-height-relaxed);
 }
 
-/* ---------- Footer + toast ---------- */
+/* ---------- Rodapé + toast ---------- */
 .ds__footer {
   padding-top: var(--cd-space-48);
   color: var(--cd-color-text-faint-on-dark);
@@ -852,7 +890,7 @@ section:last-of-type {
   color: var(--cd-color-text-muted-on-dark);
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- Responsivo ---------- */
 @media (max-width: 960px) {
   .ds {
     flex-direction: column;
