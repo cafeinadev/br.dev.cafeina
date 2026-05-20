@@ -58,10 +58,9 @@ export class BrandMotionComponent {
       const tl = gsap.timeline();
 
       /*
-       * Raio sobreposto: ele entra primeiro, com over-shoot e glow forte,
-       * e fica fixo no espaço negativo do símbolo. O logo então faz wipe
-       * por cima/em torno, "envolvendo" o raio. No final o raio some,
-       * deixando só a marca.
+       * O raio é a faísca de abertura: entra com over-shoot e glow forte,
+       * assenta e some por completo. Só depois a marca surge num wipe,
+       * deixando o estado final apenas com o logotipo.
        */
       tl.set(root, { opacity: 1 })
         .set(bolt, {
@@ -87,27 +86,31 @@ export class BrandMotionComponent {
           {
             scale: 1,
             filter: 'drop-shadow(0 0 14px rgba(253, 218, 13, 0.55))',
-            duration: 0.4,
+            duration: 0.35,
             ease: 'power2.out',
           },
           '+=0.05',
+        )
+        .to(
+          bolt,
+          {
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.4,
+            ease: 'power2.in',
+          },
+          '+=0.15',
         )
         .to(
           logo,
           {
             '--bm-clip': '0%',
             opacity: 1,
-            duration: 0.75,
+            duration: 0.8,
             ease: 'power3.out',
           },
-          '-=0.3',
-        )
-        .to({}, { duration: 3 })
-        .to(bolt, {
-          opacity: 0,
-          duration: 0.7,
-          ease: 'power2.inOut',
-        });
+          '+=0.05',
+        );
 
       this.destroyRef.onDestroy(() => tl.kill());
     });
