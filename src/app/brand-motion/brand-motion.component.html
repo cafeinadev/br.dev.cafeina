@@ -1,13 +1,15 @@
 <span #host class="bm-stage">
-  <img
-    class="bm-bolt"
-    ngSrc="/brand/icon-raio-02.png"
-    width="138"
-    height="195"
-    alt=""
-    aria-hidden="true"
-    priority
-  />
+  @if (variant() === 'hero') {
+    <img
+      class="bm-bolt"
+      ngSrc="/brand/icon-raio-02.png"
+      width="138"
+      height="195"
+      alt=""
+      aria-hidden="true"
+      priority
+    />
+  }
   <img
     class="bm-logo"
     ngSrc="/brand/logo-horizontal-branco.png"

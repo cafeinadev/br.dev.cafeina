@@ -1,0 +1,435 @@
+<a class="ds-skip" href="#ds-content">Pular para o conteúdo</a>
+
+<div class="ds">
+  <aside class="ds__sidebar">
+    <div class="ds__brand">
+      <img
+        class="ds__brand-logo"
+        src="/brand/logos/horizontal-branco.svg"
+        alt="Cafeína Dev"
+        width="180"
+        height="27"
+      />
+      <p class="ds__brand-label">Design System</p>
+    </div>
+
+    <nav class="ds__nav" aria-label="Seções do design system">
+      <ul>
+        @for (item of nav; track item.id) {
+          <li>
+            <a
+              [href]="'#' + item.id"
+              [attr.aria-current]="activeSection() === item.id ? 'true' : null"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <a class="ds__back" routerLink="/">← Voltar ao site</a>
+  </aside>
+
+  <main class="ds__main" id="ds-content" tabindex="-1" #content>
+    <header class="ds__hero">
+      <p class="ds__eyebrow">Identidade da marca</p>
+      <h1>Cafeína Dev — Design System</h1>
+      <p class="ds__lead">
+        Referência viva da identidade visual: cores, tipografia, marca, espaçamento,
+        movimento e componentes. Use esta página como handoff entre design e engenharia.
+      </p>
+    </header>
+
+    <section id="overview" aria-labelledby="overview-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">01 — Fundamentos</p>
+        <h2 id="overview-title">Visão geral</h2>
+      </div>
+      <p class="ds__section-intro">
+        A identidade da Cafeína Dev representa uma marca de tecnologia com energia, clareza
+        e capacidade de execução. A paleta combina tons escuros e neutros com o amarelo
+        vibrante — contraste entre solidez e energia.
+      </p>
+      <div class="ds__cards">
+        @for (item of principles; track item.title) {
+          <article class="ds__card">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.copy }}</p>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section id="cores" aria-labelledby="cores-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">02 — Fundamentos</p>
+        <h2 id="cores-title">Cores</h2>
+      </div>
+      <p class="ds__section-intro">
+        Quatro cores de marca formam a base. O amarelo é cor de destaque — nunca de fundo
+        extenso. Clique em qualquer valor para copiar.
+      </p>
+
+      <h3 class="ds__subhead">Cores de marca</h3>
+      <div class="ds__swatches">
+        @for (color of brandColors; track color.token) {
+          <article class="ds__swatch">
+            <div
+              class="ds__swatch-chip"
+              [style.background]="color.hex"
+              [style.color]="color.darkText ? '#000' : '#fff'"
+            >
+              <span>Aa</span>
+            </div>
+            <div class="ds__swatch-body">
+              <h4>{{ color.name }}</h4>
+              <button type="button" class="ds__token" (click)="copyValue(color.token)">
+                <code>{{ color.token }}</code>
+              </button>
+              <dl class="ds__swatch-values">
+                <div>
+                  <dt>HEX</dt>
+                  <dd>
+                    <button type="button" (click)="copyValue(color.hex)">{{ color.hex }}</button>
+                  </dd>
+                </div>
+                <div>
+                  <dt>RGB</dt>
+                  <dd>
+                    <button type="button" (click)="copyValue(color.rgb)">{{ color.rgb }}</button>
+                  </dd>
+                </div>
+                <div>
+                  <dt>CMYK</dt>
+                  <dd><span>{{ color.cmyk }}</span></dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+        }
+      </div>
+
+      <h3 class="ds__subhead">Tokens de superfície e apoio</h3>
+      <ul class="ds__token-list" role="list">
+        @for (color of surfaceColors; track color.token) {
+          <li>
+            <span
+              class="ds__token-dot"
+              [style.background]="color.value"
+              aria-hidden="true"
+            ></span>
+            <span class="ds__token-name">{{ color.name }}</span>
+            <button type="button" class="ds__token" (click)="copyValue(color.token)">
+              <code>{{ color.token }}</code>
+            </button>
+            <button type="button" class="ds__token-value" (click)="copyValue(color.value)">
+              {{ color.value }}
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section id="tipografia" aria-labelledby="tipografia-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">03 — Fundamentos</p>
+        <h2 id="tipografia-title">Tipografia</h2>
+      </div>
+      <p class="ds__section-intro">
+        A família <strong>Friends</strong> é a tipografia da marca. UltraBold e SemiBold
+        para títulos de impacto; Regular para textos corridos.
+      </p>
+
+      <div class="ds__type-specimen" aria-hidden="true">
+        <span class="ds__type-aa">Aa</span>
+        <div class="ds__type-glyphs">
+          <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+          <p>abcdefghijklmnopqrstuvwxyz</p>
+          <p>1234567890 &#64;&#35;&amp;%</p>
+        </div>
+      </div>
+
+      <div class="ds__type-scale">
+        @for (type of typeScale; track type.role) {
+          <article class="ds__type-row">
+            <p [class]="type.previewClass">{{ type.role }}</p>
+            <dl class="ds__type-meta">
+              <div><dt>Peso</dt><dd>{{ type.weight }}</dd></div>
+              <div><dt>Tamanho</dt><dd>{{ type.size }}</dd></div>
+              <div><dt>Entrelinha</dt><dd>{{ type.lineHeight }}</dd></div>
+              <div><dt>Uso</dt><dd>{{ type.usage }}</dd></div>
+            </dl>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section id="logotipo" aria-labelledby="logotipo-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">04 — Marca</p>
+        <h2 id="logotipo-title">Logotipo</h2>
+      </div>
+      <p class="ds__section-intro">
+        A versão horizontal é a aplicação prioritária. A vertical atende formatos
+        compactos. Baixe os arquivos em SVG (vetor) ou PNG.
+      </p>
+
+      <h3 class="ds__subhead">Versão horizontal — prioritária</h3>
+      <div class="ds__logo-grid">
+        @for (logo of horizontalLogos; track logo.file) {
+          <article class="ds__logo-card">
+            <div class="ds__logo-preview" [attr.data-bg]="logo.background">
+              <img
+                [src]="'/brand/logos/' + logo.file + '.svg'"
+                [alt]="'Logo horizontal Cafeína Dev — ' + logo.name"
+                width="220"
+                height="34"
+                loading="lazy"
+              />
+            </div>
+            <div class="ds__logo-info">
+              <h4>{{ logo.name }}</h4>
+              <p>{{ logo.note }}</p>
+              <div class="ds__logo-actions">
+                <a [href]="'/brand/logos/' + logo.file + '.svg'" [download]="logo.file + '.svg'">
+                  SVG
+                </a>
+                <a [href]="'/brand/logos/' + logo.file + '.png'" [download]="logo.file + '.png'">
+                  PNG
+                </a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <h3 class="ds__subhead">Versão vertical — secundária</h3>
+      <div class="ds__logo-grid ds__logo-grid--vertical">
+        @for (logo of verticalLogos; track logo.file) {
+          <article class="ds__logo-card">
+            <div class="ds__logo-preview ds__logo-preview--tall" [attr.data-bg]="logo.background">
+              <img
+                [src]="'/brand/logos/' + logo.file + '.svg'"
+                [alt]="'Logo vertical Cafeína Dev — ' + logo.name"
+                width="150"
+                height="118"
+                loading="lazy"
+              />
+            </div>
+            <div class="ds__logo-info">
+              <h4>{{ logo.name }}</h4>
+              <p>{{ logo.note }}</p>
+              <div class="ds__logo-actions">
+                <a [href]="'/brand/logos/' + logo.file + '.svg'" [download]="logo.file + '.svg'">
+                  SVG
+                </a>
+                <a [href]="'/brand/logos/' + logo.file + '.png'" [download]="logo.file + '.png'">
+                  PNG
+                </a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <h3 class="ds__subhead">Usos vetados</h3>
+      <ul class="ds__dont-list" role="list">
+        @for (item of logoDonts; track item.title) {
+          <li class="ds__dont">
+            <span class="ds__dont-mark" aria-hidden="true">✕</span>
+            <div>
+              <h4>{{ item.title }}</h4>
+              <p>{{ item.copy }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section id="simbolo" aria-labelledby="simbolo-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">05 — Marca</p>
+        <h2 id="simbolo-title">Símbolo</h2>
+      </div>
+      <p class="ds__section-intro">
+        O símbolo é a versão reduzida da marca — favicons, avatares, selos e elementos de
+        interface. O raio ocupa o espaço negativo do hexágono.
+      </p>
+
+      <div class="ds__logo-grid ds__logo-grid--symbol">
+        @for (logo of symbolLogos; track logo.file) {
+          <article class="ds__logo-card">
+            <div class="ds__logo-preview ds__logo-preview--square" [attr.data-bg]="logo.background">
+              <img
+                [src]="'/brand/logos/' + logo.file + '.svg'"
+                [alt]="'Símbolo Cafeína Dev — ' + logo.name"
+                width="104"
+                height="104"
+                loading="lazy"
+              />
+            </div>
+            <div class="ds__logo-info">
+              <h4>{{ logo.name }}</h4>
+              <p>{{ logo.note }}</p>
+              <div class="ds__logo-actions">
+                <a [href]="'/brand/logos/' + logo.file + '.svg'" [download]="logo.file + '.svg'">
+                  SVG
+                </a>
+                <a [href]="'/brand/logos/' + logo.file + '.png'" [download]="logo.file + '.png'">
+                  PNG
+                </a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <article class="ds__logo-card ds__raio-card">
+        <div class="ds__logo-preview ds__logo-preview--square" data-bg="dark">
+          <img
+            src="/brand/logos/raio.svg"
+            alt="Elemento gráfico raio Cafeína Dev"
+            width="74"
+            height="104"
+            loading="lazy"
+          />
+        </div>
+        <div class="ds__logo-info">
+          <h4>Raio — elemento de apoio</h4>
+          <p>Faísca do símbolo, usada como recurso gráfico e na animação de marca.</p>
+          <div class="ds__logo-actions">
+            <a href="/brand/logos/raio.svg" download="raio.svg">SVG</a>
+            <a href="/brand/logos/raio.png" download="raio.png">PNG</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="grid" aria-labelledby="grid-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">06 — Fundamentos</p>
+        <h2 id="grid-title">Grid &amp; espaçamento</h2>
+      </div>
+      <p class="ds__section-intro">
+        A construção da marca segue uma malha de 27×4 unidades "X". Layouts digitais usam
+        a escala de espaçamento em múltiplos de 4.
+      </p>
+
+      <div class="ds__cards ds__cards--two">
+        <article class="ds__card">
+          <h3>Malha construtiva</h3>
+          <p>A marca ocupa 27 unidades de largura por 4 de altura. A unidade "X" garante proporção e simetria.</p>
+        </article>
+        <article class="ds__card">
+          <h3>Área de proteção</h3>
+          <p>Margem livre de 2x ao redor da marca. Nenhum elemento deve invadir esse limite. Altura mínima de 20 mm em impressos.</p>
+        </article>
+      </div>
+
+      <h3 class="ds__subhead">Escala de espaçamento</h3>
+      <ul class="ds__scale-list" role="list">
+        @for (space of spacingScale; track space.token) {
+          <li>
+            <span class="ds__scale-bar" [style.width.px]="space.px" aria-hidden="true"></span>
+            <button type="button" class="ds__token" (click)="copyValue(space.token)">
+              <code>{{ space.token }}</code>
+            </button>
+            <span class="ds__scale-value">{{ space.rem }} · {{ space.px }}px</span>
+          </li>
+        }
+      </ul>
+
+      <h3 class="ds__subhead">Raio de borda</h3>
+      <ul class="ds__radius-list" role="list">
+        @for (radius of radiusScale; track radius.token) {
+          <li>
+            <span
+              class="ds__radius-demo"
+              [style.border-radius]="radius.rem"
+              aria-hidden="true"
+            ></span>
+            <button type="button" class="ds__token" (click)="copyValue(radius.token)">
+              <code>{{ radius.token }}</code>
+            </button>
+            <span class="ds__scale-value">{{ radius.rem }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section id="movimento" aria-labelledby="movimento-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">07 — Expressão</p>
+        <h2 id="movimento-title">Movimento</h2>
+      </div>
+      <p class="ds__section-intro">
+        A animação de marca trata o raio como faísca de abertura: ele entra, assenta e some
+        por completo antes de a marca surgir num wipe. Respeita
+        <code>prefers-reduced-motion</code>.
+      </p>
+
+      <div class="ds__motion-stage">
+        <app-brand-motion variant="hero" ariaLabel="Animação da marca Cafeína Dev" />
+      </div>
+
+      <ol class="ds__motion-steps">
+        <li><strong>Faísca</strong> — o raio entra com over-shoot e glow forte.</li>
+        <li><strong>Assenta</strong> — o raio estabiliza e o glow se suaviza.</li>
+        <li><strong>Some</strong> — o raio desaparece por completo.</li>
+        <li><strong>Marca</strong> — o logotipo surge num wipe e permanece.</li>
+      </ol>
+    </section>
+
+    <section id="componentes" aria-labelledby="componentes-title">
+      <div class="ds__section-head">
+        <p class="ds__kicker">08 — Componentes</p>
+        <h2 id="componentes-title">Componentes</h2>
+      </div>
+      <p class="ds__section-intro">
+        Componentes base usados na landing page, construídos sobre os tokens da marca.
+      </p>
+
+      <h3 class="ds__subhead">Botões</h3>
+      <div class="ds__demo">
+        <div class="ds__demo-stage">
+          <button type="button" class="ds-btn ds-btn--primary">Chama no direct</button>
+          <button type="button" class="ds-btn ds-btn--secondary">Saiba mais</button>
+        </div>
+        <p class="ds__demo-note">
+          Primário: amarelo sobre texto preto. Secundário: contorno sobre fundo escuro.
+        </p>
+      </div>
+
+      <h3 class="ds__subhead">Tags</h3>
+      <div class="ds__demo">
+        <ul class="ds-tags" role="list">
+          <li>Arquitetura</li>
+          <li>Produto</li>
+          <li>Operação</li>
+          <li>Engenharia</li>
+        </ul>
+        <p class="ds__demo-note">Listas de temas — caixa alta, contorno sutil.</p>
+      </div>
+
+      <h3 class="ds__subhead">Card</h3>
+      <div class="ds__demo">
+        <article class="ds-demo-card">
+          <h4>Engenharia notável</h4>
+          <p>
+            Removemos o ruído entre produto, engenharia e operação. Sobra clareza,
+            cadência e capacidade.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="ds__footer">
+      <p>© 2026 Cafeína Dev — Design System. Engenharia que se nota.</p>
+    </footer>
+  </main>
+</div>
+
+@if (copied(); as value) {
+  <p class="ds__toast" role="status">Copiado: {{ value }}</p>
+}
