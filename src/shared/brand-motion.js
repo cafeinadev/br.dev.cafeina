@@ -1,33 +1,49 @@
 import { gsap } from 'gsap';
 
 /**
- * Anima a entrada do visual do hero (hexágono + raio + glow).
- * Idempotente e respeita prefers-reduced-motion.
+ * Anima a entrada do hero: o raio branco pula na tela, some, e então o
+ * símbolo amarelo surge com a órbita de raios. Respeita prefers-reduced-motion.
+ * Os raios da órbita giram continuamente via CSS — aqui só revelamos os elementos.
  * @param {HTMLElement | null} root contêiner do visual do hero
  */
 export function initHeroMotion(root) {
   if (!root) return;
 
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const glow = root.querySelector('[data-hero-glow]');
+  const spark = root.querySelector('[data-hero-spark]');
   const hex = root.querySelector('[data-hero-hex]');
-  const raio = root.querySelector('[data-hero-raio]');
+  const hexImg = hex?.querySelector('img');
+  const orbitLine = root.querySelector('[data-hero-orbit-line]');
+  const orbit = root.querySelector('[data-hero-orbit]');
+  if (!hex) return;
 
-  if (reduce || !hex) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    gsap.set(spark, { opacity: 0 });
+    gsap.set([glow, hex, orbitLine, orbit], { opacity: 1 });
+    return;
+  }
 
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  const tl = gsap.timeline();
 
-  tl.from(glow, { opacity: 0, scale: 0.55, duration: 1.2 })
-    .from(
-      hex,
-      { opacity: 0, scale: 0.82, yPercent: 8, duration: 0.9, ease: 'back.out(1.5)' },
-      '-=0.8',
-    )
-    .from(
-      raio,
-      { opacity: 0, scale: 0, rotate: -25, duration: 0.55, ease: 'back.out(2.6)' },
-      '-=0.3',
-    );
+  tl.set(spark, { opacity: 0, scale: 0, rotate: -20, transformOrigin: '50% 50%' })
+    .set(hex, { opacity: 0 })
+    .set(hexImg, { scale: 0.8, transformOrigin: '50% 50%' })
+    .set(glow, { opacity: 0, scale: 0.6 })
+    .set([orbitLine, orbit], { opacity: 0 })
+    // 1. o raio branco pula na tela
+    .to(spark, { opacity: 1, scale: 1.15, rotate: 0, duration: 0.85, ease: 'elastic.out(1, 0.45)' }, 0)
+    .to(glow, { opacity: 0.55, scale: 1, duration: 0.5, ease: 'power2.out' }, 0)
+    // 2. assenta
+    .to(spark, { scale: 0.95, duration: 0.25, ease: 'power1.inOut' })
+    // 3. segura e 4. some
+    .to(spark, { opacity: 0, scale: 0.4, rotate: 14, duration: 0.4, ease: 'back.in(1.6)' }, '+=0.25')
+    // 5. o símbolo amarelo surge
+    .to(hex, { opacity: 1, duration: 0.55, ease: 'power2.out' }, '-=0.15')
+    .to(hexImg, { scale: 1, duration: 0.75, ease: 'back.out(1.6)' }, '<')
+    // 6. a órbita aparece
+    .to(orbitLine, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+    .to(orbit, { opacity: 1, duration: 0.7, ease: 'power2.out' }, '-=0.45');
 }
 
 /**

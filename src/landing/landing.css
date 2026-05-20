@@ -233,12 +233,13 @@
   font-size: 0.82rem;
 }
 
-/* ---- Hero visual (placeholder 3D do hexágono) ---- */
+/* ---- Hero visual — raio + símbolo + órbita de "átomos" ---- */
 .hero__visual {
   position: relative;
   display: grid;
   place-items: center;
   min-height: 26rem;
+  --orbit-radius: clamp(8.5rem, 15vw, 12.5rem);
 }
 
 .hero__glow {
@@ -248,26 +249,37 @@
   border-radius: 50%;
   background: radial-gradient(circle, rgba(253, 218, 13, 0.34), transparent 62%);
   filter: blur(40px);
+  opacity: 0;
 }
 
-.hero__ring {
+/* linha de órbita sutil */
+.hero__orbit-line {
   position: absolute;
-  width: 78%;
-  aspect-ratio: 1;
+  z-index: 0;
+  width: calc(var(--orbit-radius) * 2);
+  height: calc(var(--orbit-radius) * 2);
   border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(253, 218, 13, 0.55) 60deg,
-    transparent 150deg,
-    transparent 240deg,
-    rgba(253, 218, 13, 0.25) 300deg,
-    transparent 360deg
-  );
-  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
-  animation: hero-spin 18s linear infinite;
+  border: 1px solid rgba(253, 218, 13, 0.18);
+  box-shadow:
+    0 0 24px -8px rgba(253, 218, 13, 0.25),
+    inset 0 0 24px -10px rgba(253, 218, 13, 0.2);
+  opacity: 0;
 }
 
+/* raio branco central — pula na tela e some */
+.hero__spark {
+  position: absolute;
+  z-index: 3;
+  width: clamp(4.5rem, 9vw, 7rem);
+  filter: brightness(0) invert(1) drop-shadow(0 0 26px rgba(255, 255, 255, 0.85));
+  opacity: 0;
+}
+
+.hero__spark img {
+  width: 100%;
+}
+
+/* símbolo amarelo */
 .hero__hex {
   position: relative;
   z-index: 1;
@@ -275,28 +287,93 @@
   width: clamp(14rem, 22vw, 19rem);
   filter: drop-shadow(0 0 38px rgba(253, 218, 13, 0.55));
   animation: hero-float 7s ease-in-out infinite alternate;
+  opacity: 0;
 }
 
 .hero__hex img {
   width: 100%;
 }
 
-.hero__raio {
+/* órbita — raios girando como átomos */
+.hero__orbit {
   position: absolute;
   z-index: 2;
-  top: 12%;
-  right: 20%;
-  width: clamp(2.4rem, 4vw, 3.4rem);
-  filter: drop-shadow(0 0 16px rgba(253, 218, 13, 0.9));
+  inset: 0;
+  opacity: 0;
 }
 
-.hero__raio img {
+.hero__orbiter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  display: grid;
+  place-items: center;
+  animation: orbit-spin var(--orbit-dur, 16s) linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+}
+
+.hero__orbiter-raio {
+  display: block;
+  width: clamp(1.7rem, 3vw, 2.5rem);
+  transform: translateY(calc(var(--orbit-radius) * -1));
+  filter: drop-shadow(0 0 12px rgba(253, 218, 13, 0.85));
+  animation: orbit-counter var(--orbit-dur, 16s) linear infinite reverse;
+  animation-delay: var(--orbit-delay, 0s);
+}
+
+.hero__orbiter-raio img {
   width: 100%;
 }
 
-@keyframes hero-spin {
+.hero__orbiter--1 {
+  --orbit-dur: 14s;
+  --orbit-delay: 0s;
+  transform: rotate(0deg);
+}
+
+.hero__orbiter--2 {
+  --orbit-dur: 19s;
+  --orbit-delay: -4.75s;
+  transform: rotate(90deg);
+}
+
+.hero__orbiter--3 {
+  --orbit-dur: 16.5s;
+  --orbit-delay: -8.25s;
+  transform: rotate(180deg);
+}
+
+.hero__orbiter--4 {
+  --orbit-dur: 22s;
+  --orbit-delay: -16.5s;
+  transform: rotate(270deg);
+}
+
+.hero__orbiter--2 .hero__orbiter-raio {
+  --orbit-radius: calc(clamp(8.5rem, 15vw, 12.5rem) * 0.9);
+}
+
+.hero__orbiter--4 .hero__orbiter-raio {
+  --orbit-radius: calc(clamp(8.5rem, 15vw, 12.5rem) * 1.08);
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter {
+  from {
+    transform: translateY(calc(var(--orbit-radius) * -1)) rotate(0deg);
+  }
+  to {
+    transform: translateY(calc(var(--orbit-radius) * -1)) rotate(360deg);
   }
 }
 
@@ -310,9 +387,21 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__ring,
-  .hero__hex {
+  .hero__hex,
+  .hero__orbiter,
+  .hero__orbiter-raio {
     animation: none;
+  }
+
+  .hero__hex,
+  .hero__glow,
+  .hero__orbit-line,
+  .hero__orbit {
+    opacity: 1;
+  }
+
+  .hero__spark {
+    opacity: 0;
   }
 }
 
