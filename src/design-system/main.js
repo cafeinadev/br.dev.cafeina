@@ -298,3 +298,68 @@ if (sections.length && 'IntersectionObserver' in window) {
 
 /* ============ Animação de marca ============ */
 initHeroMotion($('[data-hero-visual]'));
+
+/* ============ Drawer da sidebar ============ */
+const sidebar = $('[data-sidebar]');
+const drawerToggle = $('[data-drawer-toggle]');
+const drawerScrim = $('[data-drawer-scrim]');
+const narrowQuery = window.matchMedia('(max-width: 960px)');
+const DRAWER_KEY = 'cd-ds-drawer';
+
+function isDrawerOpen() {
+  return sidebar?.classList.contains('is-drawer-open') ?? false;
+}
+
+function applyDrawer(open) {
+  if (!sidebar) return;
+  sidebar.classList.toggle('is-drawer-open', open);
+  sidebar.classList.toggle('is-drawer-close', !open);
+  if (drawerToggle) {
+    drawerToggle.setAttribute('aria-expanded', String(open));
+    drawerToggle.setAttribute('aria-label', open ? 'Recolher menu' : 'Expandir menu');
+  }
+  if (drawerScrim) {
+    drawerScrim.hidden = !(open && narrowQuery.matches);
+  }
+}
+
+function persistDrawer(open) {
+  try {
+    localStorage.setItem(DRAWER_KEY, open ? 'open' : 'close');
+  } catch {
+    /* localStorage indisponível — ignora */
+  }
+}
+
+let storedDrawer = null;
+try {
+  storedDrawer = localStorage.getItem(DRAWER_KEY);
+} catch {
+  /* ignora */
+}
+
+// Padrão: aberto em telas largas, recolhido em telas estreitas.
+applyDrawer(storedDrawer === null ? !narrowQuery.matches : storedDrawer === 'open');
+
+drawerToggle?.addEventListener('click', () => {
+  const open = !isDrawerOpen();
+  applyDrawer(open);
+  persistDrawer(open);
+});
+
+drawerScrim?.addEventListener('click', () => {
+  applyDrawer(false);
+  persistDrawer(false);
+});
+
+// Em telas estreitas, navegar fecha o drawer.
+document.querySelectorAll('.ds__nav a').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (narrowQuery.matches) {
+      applyDrawer(false);
+      persistDrawer(false);
+    }
+  });
+});
+
+narrowQuery.addEventListener('change', () => applyDrawer(isDrawerOpen()));
