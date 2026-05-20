@@ -1,0 +1,82 @@
+version: "1"
+
+services:
+  - type: web
+    name: penpot-frontend
+    runtime: image
+    image:
+      url: docker.io/penpotapp/frontend:latest
+    region: virginia
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: PENPOT_PUBLIC_URI
+        value: https://penpot.cafeina.dev.br
+      - key: PENPOT_FLAGS
+        value: disable-registration enable-secure-session-cookies
+      - key: PENPOT_HTTP_SERVER_MAX_BODY_SIZE
+        value: "367001600"
+
+  - type: web
+    name: penpot-backend
+    runtime: image
+    image:
+      url: docker.io/penpotapp/backend:latest
+    region: virginia
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /api/rpc/command/get-profile
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: PENPOT_HTTP_SERVER_PORT
+        value: "10000"
+      - key: JAVA_TOOL_OPTIONS
+        value: -Djava.net.preferIPv4Stack=true
+      - key: PENPOT_PUBLIC_URI
+        value: https://penpot.cafeina.dev.br
+      - key: PENPOT_FLAGS
+        value: disable-registration enable-secure-session-cookies disable-prepl-server
+      - key: PENPOT_SECRET_KEY
+        generateValue: true
+      - key: PENPOT_REDIS_URI
+        fromService:
+          type: keyvalue
+          name: penpot-redis
+          property: connectionString
+      - key: PENPOT_DATABASE_URI
+        sync: false
+      - key: PENPOT_DATABASE_USERNAME
+        sync: false
+      - key: PENPOT_DATABASE_PASSWORD
+        sync: false
+      - key: PENPOT_OBJECTS_STORAGE_BACKEND
+        value: s3
+      - key: PENPOT_OBJECTS_STORAGE_S3_ENDPOINT
+        sync: false
+      - key: PENPOT_OBJECTS_STORAGE_S3_REGION
+        value: us-east-1
+      - key: PENPOT_OBJECTS_STORAGE_S3_BUCKET
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: PENPOT_REGISTRATION_ENABLED
+        value: "false"
+      - key: PENPOT_TELEMETRY_OPT_OUT
+        value: "true"
+      - key: PENPOT_TELEMETRY_ENABLED
+        value: "false"
+      - key: PENPOT_HTTP_SERVER_MAX_BODY_SIZE
+        value: "367001600"
+
+  - type: keyvalue
+    name: penpot-redis
+    region: virginia
+    plan: free
+    maxmemoryPolicy: volatile-lfu
+    ipAllowList: []
