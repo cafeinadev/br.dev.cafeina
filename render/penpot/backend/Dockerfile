@@ -2,7 +2,7 @@ FROM docker.io/penpotapp/backend:2.15.3
 
 USER root
 
-COPY entrypoint-render.sh /opt/penpot-render/entrypoint-render.sh
+COPY entrypoint-render.sh proxy.js /opt/penpot-render/
 
 RUN chmod +x /opt/penpot-render/entrypoint-render.sh \
   && chown -R penpot:penpot /opt/penpot-render

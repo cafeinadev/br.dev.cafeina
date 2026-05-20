@@ -48,6 +48,8 @@ services:
         value: "10000"
       - key: PENPOT_HTTP_SERVER_HOST
         value: 0.0.0.0
+      - key: PENPOT_INTERNAL_HTTP_PORT
+        value: "6060"
       - key: JAVA_TOOL_OPTIONS
         value: -Djava.net.preferIPv4Stack=true
       - key: PENPOT_PUBLIC_URI
