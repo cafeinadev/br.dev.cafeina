@@ -1,7 +1,5 @@
-[build]
-  command = "npm run build"
-  publish = "dist/br.dev.cafeina/browser"
-
+# Build command and publish dir are set per-site in Netlify, since this repo
+# serves two sites: cafeinadev (main app) and the design-system app.
 [build.environment]
   NODE_VERSION = "22"
 

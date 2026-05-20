@@ -8,8 +8,6 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
-
 import { BrandMotionComponent } from '../brand-motion/brand-motion.component';
 
 interface NavItem {
@@ -62,7 +60,7 @@ interface GuidelineItem {
 
 @Component({
   selector: 'app-design-system',
-  imports: [RouterLink, BrandMotionComponent],
+  imports: [BrandMotionComponent],
   templateUrl: './design-system.html',
   styleUrl: './design-system.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

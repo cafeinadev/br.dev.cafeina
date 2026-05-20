@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "start": "ng serve br.dev.cafeina",
+    "start:design-system": "ng serve design-system --port 4300",
+    "build": "ng build br.dev.cafeina",
+    "build:design-system": "ng build design-system",
+    "watch": "ng build br.dev.cafeina --watch --configuration development",
+    "test": "ng test br.dev.cafeina",
     "serve:ssr:br.dev.cafeina": "node dist/br.dev.cafeina/server/server.mjs"
   },
   "private": true,
