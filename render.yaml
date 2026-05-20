@@ -3,18 +3,29 @@ version: "1"
 services:
   - type: web
     name: penpot-frontend
-    runtime: image
-    image:
-      url: docker.io/penpotapp/frontend:latest
+    runtime: docker
+    repo: https://github.com/cafeinadev/br.dev.cafeina
+    branch: main
+    rootDir: render/penpot/frontend
     region: virginia
     plan: free
-    autoDeploy: true
+    autoDeployTrigger: commit
     healthCheckPath: /
     envVars:
       - key: PORT
         value: "8080"
       - key: PENPOT_PUBLIC_URI
         value: https://penpot.cafeina.dev.br
+      - key: PENPOT_BACKEND_URI
+        value: https://penpot-backend-aotb.onrender.com
+      - key: PENPOT_EXPORTER_URI
+        value: https://penpot-backend-aotb.onrender.com
+      - key: PENPOT_NITRATE_URI
+        value: https://penpot-backend-aotb.onrender.com
+      - key: PENPOT_MCP_URI
+        value: https://penpot-backend-aotb.onrender.com
+      - key: PENPOT_MCP_URI_WS
+        value: https://penpot-backend-aotb.onrender.com
       - key: PENPOT_FLAGS
         value: disable-registration enable-secure-session-cookies
       - key: PENPOT_HTTP_SERVER_MAX_BODY_SIZE
@@ -24,7 +35,7 @@ services:
     name: penpot-backend
     runtime: image
     image:
-      url: docker.io/penpotapp/backend:latest
+      url: docker.io/penpotapp/backend:2.15.3
     region: virginia
     plan: free
     autoDeploy: true
