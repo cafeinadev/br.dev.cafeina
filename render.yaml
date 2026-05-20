@@ -52,6 +52,8 @@ services:
         value: "6060"
       - key: JAVA_TOOL_OPTIONS
         value: -Djava.net.preferIPv4Stack=true
+      - key: JVM_OPTS
+        value: -Xms128m -Xmx384m
       - key: PENPOT_PUBLIC_URI
         value: https://penpot.cafeina.dev.br
       - key: PENPOT_FLAGS
