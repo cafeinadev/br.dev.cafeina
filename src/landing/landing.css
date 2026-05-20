@@ -59,45 +59,6 @@
   mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 35%, transparent 78%);
 }
 
-/* ============ Announce ============ */
-.announce {
-  display: flex;
-  align-items: center;
-  gap: var(--cd-space-8);
-  width: fit-content;
-  margin: var(--cd-space-24) auto 0;
-  padding: var(--cd-space-8) var(--cd-space-16);
-  background: var(--cd-color-surface-glass);
-  border: var(--cd-stroke-hairline) solid var(--cd-color-border-on-dark);
-  border-radius: var(--cd-radius-pill);
-  color: var(--cd-color-text-muted-on-dark);
-  font-size: 0.875rem;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
-}
-
-.announce:hover {
-  border-color: var(--cd-color-border-on-dark-strong);
-  color: var(--cd-color-text-primary);
-  transform: translateY(-1px);
-}
-
-.announce__tag {
-  padding: 2px var(--cd-space-8);
-  background: var(--cd-color-brand-energy);
-  color: var(--cd-color-neutral-black);
-  border-radius: var(--cd-radius-pill);
-  font-size: 0.7rem;
-  font-weight: var(--cd-font-weight-semibold);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.announce__arrow {
-  color: var(--cd-color-brand-energy);
-}
-
 /* ============ Header ============ */
 .header {
   position: sticky;
