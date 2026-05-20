@@ -1,0 +1,147 @@
+/* ---- Friends — tipografia da marca ---- */
+@font-face {
+  font-family: 'Friends';
+  src: url('/brand/fonts/Friends-Regular.ttf') format('truetype');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Friends';
+  src: url('/brand/fonts/Friends-SemiBold.ttf') format('truetype');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Friends';
+  src: url('/brand/fonts/Friends-UltraBold.ttf') format('truetype');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 800;
+}
+
+:root {
+  /* Cores de marca */
+  --cd-color-brand-energy: #fdda0d;
+  --cd-color-brand-graphite: #333530;
+  --cd-color-neutral-white: #ffffff;
+  --cd-color-neutral-black: #000000;
+  --cd-color-surface-muted: #f7f7f2;
+  --cd-color-border-default: #d8d9d2;
+  --cd-color-button-primary-hover: #ebc900;
+
+  /* Dark — profundidade atmosférica */
+  --cd-color-background-page: #191b16;
+  --cd-color-background-deep: #111209;
+  --cd-color-surface-elevated-dark: #1f211d;
+  --cd-color-surface-elevated-dark-hover: #272a25;
+  --cd-color-surface-glass: rgba(31, 33, 29, 0.6);
+  --cd-color-text-primary: var(--cd-color-neutral-white);
+  --cd-color-text-muted-on-dark: rgba(255, 255, 255, 0.72);
+  --cd-color-text-faint-on-dark: rgba(255, 255, 255, 0.5);
+  --cd-color-border-on-dark: rgba(255, 255, 255, 0.1);
+  --cd-color-border-on-dark-strong: rgba(255, 255, 255, 0.32);
+
+  /* Tipografia */
+  --cd-font-family-brand: 'Friends', Arial, sans-serif;
+  --cd-font-weight-regular: 400;
+  --cd-font-weight-semibold: 600;
+  --cd-font-weight-ultrabold: 800;
+  --cd-line-height-tight: 1.05;
+  --cd-line-height-normal: 1.45;
+  --cd-line-height-relaxed: 1.62;
+
+  /* Espaçamento */
+  --cd-space-4: 0.25rem;
+  --cd-space-8: 0.5rem;
+  --cd-space-12: 0.75rem;
+  --cd-space-16: 1rem;
+  --cd-space-24: 1.5rem;
+  --cd-space-32: 2rem;
+  --cd-space-48: 3rem;
+  --cd-space-64: 4rem;
+  --cd-space-96: 6rem;
+
+  --cd-radius-sm: 0.25rem;
+  --cd-radius-md: 0.5rem;
+  --cd-radius-lg: 1.25rem;
+  --cd-radius-pill: 999px;
+  --cd-stroke-hairline: 1px;
+  --cd-stroke-focus: 2px;
+  --page-max: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--cd-color-background-page);
+  color: var(--cd-color-text-primary);
+  color-scheme: dark;
+  font-family: var(--cd-font-family-brand);
+  line-height: var(--cd-line-height-normal);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--cd-color-background-page);
+  color: var(--cd-color-text-primary);
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: var(--cd-stroke-focus) solid var(--cd-color-brand-energy);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--cd-color-brand-energy);
+  color: var(--cd-color-neutral-black);
+}
+
+.skip-link {
+  background: var(--cd-color-brand-energy);
+  color: var(--cd-color-neutral-black);
+  font-weight: var(--cd-font-weight-semibold);
+  inset: 1rem auto auto 1rem;
+  padding: var(--cd-space-12) var(--cd-space-16);
+  position: fixed;
+  text-decoration: none;
+  transform: translateY(-150%);
+  z-index: 60;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
