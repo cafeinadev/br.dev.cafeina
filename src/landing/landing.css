@@ -168,7 +168,7 @@
 /* ============ Hero ============ */
 .hero {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 1fr;
   align-items: center;
   gap: var(--cd-space-48);
   padding-block: var(--cd-space-96) var(--cd-space-64);
@@ -238,8 +238,8 @@
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 26rem;
-  --orbit-radius: clamp(8.5rem, 15vw, 12.5rem);
+  min-height: 22rem;
+  --orbit-radius: clamp(5.5rem, 11vw, 8.5rem);
 }
 
 .hero__glow {
@@ -270,8 +270,8 @@
 .hero__spark {
   position: absolute;
   z-index: 3;
-  width: clamp(4.5rem, 9vw, 7rem);
-  filter: brightness(0) invert(1) drop-shadow(0 0 26px rgba(255, 255, 255, 0.85));
+  width: clamp(3.25rem, 6vw, 4.75rem);
+  filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255, 255, 255, 0.85));
   opacity: 0;
 }
 
@@ -284,8 +284,8 @@
   position: relative;
   z-index: 1;
   display: block;
-  width: clamp(14rem, 22vw, 19rem);
-  filter: drop-shadow(0 0 38px rgba(253, 218, 13, 0.55));
+  width: clamp(8rem, 16vw, 10.5rem);
+  filter: drop-shadow(0 0 26px rgba(253, 218, 13, 0.55));
   animation: hero-float 7s ease-in-out infinite alternate;
   opacity: 0;
 }
@@ -316,7 +316,7 @@
 
 .hero__orbiter-raio {
   display: block;
-  width: clamp(1.7rem, 3vw, 2.5rem);
+  width: clamp(1.25rem, 2.4vw, 1.85rem);
   transform: translateY(calc(var(--orbit-radius) * -1));
   filter: drop-shadow(0 0 12px rgba(253, 218, 13, 0.85));
   animation: orbit-counter var(--orbit-dur, 16s) linear infinite reverse;
@@ -335,28 +335,12 @@
 
 .hero__orbiter--2 {
   --orbit-dur: 19s;
-  --orbit-delay: -4.75s;
-  transform: rotate(90deg);
-}
-
-.hero__orbiter--3 {
-  --orbit-dur: 16.5s;
-  --orbit-delay: -8.25s;
+  --orbit-delay: -9.5s;
   transform: rotate(180deg);
 }
 
-.hero__orbiter--4 {
-  --orbit-dur: 22s;
-  --orbit-delay: -16.5s;
-  transform: rotate(270deg);
-}
-
 .hero__orbiter--2 .hero__orbiter-raio {
-  --orbit-radius: calc(clamp(8.5rem, 15vw, 12.5rem) * 0.9);
-}
-
-.hero__orbiter--4 .hero__orbiter-raio {
-  --orbit-radius: calc(clamp(8.5rem, 15vw, 12.5rem) * 1.08);
+  --orbit-radius: calc(clamp(5.5rem, 11vw, 8.5rem) * 0.86);
 }
 
 @keyframes orbit-spin {
