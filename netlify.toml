@@ -3,6 +3,20 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# The design system moved to its own site (design-system.cafeina.dev.br).
+# Send the retired /design-system path back to the home page.
+[[redirects]]
+  from = "/design-system"
+  to = "https://cafeina.dev.br/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/design-system/*"
+  to = "https://cafeina.dev.br/"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
