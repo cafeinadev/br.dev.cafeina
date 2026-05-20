@@ -1,5 +1,5 @@
 import './design-system.css';
-import { initHeroMotion } from '../shared/brand-motion.js';
+import { playBrandMotion } from '../shared/brand-motion.js';
 
 /* ============ Dados ============ */
 const principles = [
@@ -296,8 +296,27 @@ if (sections.length && 'IntersectionObserver' in window) {
   sections.forEach((section) => observer.observe(section));
 }
 
-/* ============ Animação de marca ============ */
-initHeroMotion($('[data-hero-visual]'));
+/* ============ Animação de marca (seção Movimento) ============ */
+const motionRoot = $('[data-brand-motion]');
+const motionStage = $('.ds__motion-stage');
+let motionTimeline;
+
+if (motionRoot && motionStage && 'IntersectionObserver' in window) {
+  const motionObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          motionTimeline?.kill();
+          motionTimeline = playBrandMotion(motionRoot);
+        }
+      }
+    },
+    { threshold: 0.55 },
+  );
+  motionObserver.observe(motionStage);
+} else {
+  playBrandMotion(motionRoot);
+}
 
 /* ============ Drawer da sidebar ============ */
 const sidebar = $('[data-sidebar]');

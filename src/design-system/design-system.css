@@ -785,40 +785,35 @@ section:last-of-type {
   position: relative;
   display: grid;
   place-items: center;
-  width: 13rem;
-  height: 13rem;
+  width: 18rem;
+  height: 8rem;
+}
+
+.ds-motion > * {
+  grid-area: 1 / 1;
 }
 
 .ds-motion__glow {
-  position: absolute;
-  width: 100%;
-  aspect-ratio: 1;
+  width: 11rem;
+  height: 11rem;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(253, 218, 13, 0.4), transparent 65%);
-  filter: blur(30px);
-}
-
-.ds-motion__hex {
-  position: relative;
-  z-index: 1;
-  width: 9rem;
-  filter: drop-shadow(0 0 26px rgba(253, 218, 13, 0.55));
-}
-
-.ds-motion__hex img {
-  width: 100%;
+  background: radial-gradient(circle, rgba(253, 218, 13, 0.42), transparent 65%);
+  filter: blur(28px);
 }
 
 .ds-motion__raio {
-  position: absolute;
   z-index: 2;
-  top: 14%;
-  right: 22%;
-  width: 2.4rem;
+  width: 2.6rem;
   filter: drop-shadow(0 0 12px rgba(253, 218, 13, 0.9));
 }
 
-.ds-motion__raio img {
+.ds-motion__logo {
+  z-index: 1;
+  width: 15rem;
+}
+
+.ds-motion__raio img,
+.ds-motion__logo img {
   width: 100%;
 }
 
