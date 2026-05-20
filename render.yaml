@@ -37,7 +37,7 @@ services:
     image:
       url: docker.io/penpotapp/backend:2.15.3
     dockerCommand: >
-      /bin/bash -lc 'cd /opt/penpot/backend && export JAVA_OPTS="-Dim4java.useV7=true -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager -Dlog4j2.configurationFile=log4j2.xml -XX:-OmitStackTraceInFastThrow --sun-misc-unsafe-memory-access=allow --enable-native-access=ALL-UNNAMED --enable-preview $JVM_OPTS $JAVA_OPTS" && exec java $JAVA_OPTS -cp penpot.jar clojure.main -e "(require (quote app.main))(app.main/start)(deref (promise))"'
+      cd /opt/penpot/backend && export JAVA_OPTS="-Dim4java.useV7=true -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager -Dlog4j2.configurationFile=log4j2.xml -XX:-OmitStackTraceInFastThrow --sun-misc-unsafe-memory-access=allow --enable-native-access=ALL-UNNAMED --enable-preview $JVM_OPTS $JAVA_OPTS" && exec java $JAVA_OPTS -cp penpot.jar clojure.main -e "(require (quote app.main))(app.main/start)(deref (promise))"
     region: virginia
     plan: free
     autoDeploy: true
