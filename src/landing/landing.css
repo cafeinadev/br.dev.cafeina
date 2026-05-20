@@ -316,9 +316,9 @@
 
 .hero__orbiter-raio {
   display: block;
-  width: clamp(1.25rem, 2.4vw, 1.85rem);
+  width: 0.75rem;
   transform: translateY(calc(var(--orbit-radius) * -1));
-  filter: drop-shadow(0 0 12px rgba(253, 218, 13, 0.85));
+  filter: drop-shadow(0 0 6px rgba(253, 218, 13, 0.95));
   animation: orbit-counter var(--orbit-dur, 16s) linear infinite reverse;
   animation-delay: var(--orbit-delay, 0s);
 }
@@ -335,12 +335,27 @@
 
 .hero__orbiter--2 {
   --orbit-dur: 19s;
-  --orbit-delay: -9.5s;
-  transform: rotate(180deg);
+  --orbit-delay: -6.3s;
+  transform: rotate(120deg);
+}
+
+.hero__orbiter--3 {
+  --orbit-dur: 16.5s;
+  --orbit-delay: -11s;
+  transform: rotate(240deg);
+}
+
+/* elétrons — raios minúsculos, tamanhos escalonados */
+.hero__orbiter--1 .hero__orbiter-raio {
+  width: 0.5rem;
 }
 
 .hero__orbiter--2 .hero__orbiter-raio {
-  --orbit-radius: calc(clamp(5.5rem, 11vw, 8.5rem) * 0.86);
+  width: 0.75rem;
+}
+
+.hero__orbiter--3 .hero__orbiter-raio {
+  width: 1rem;
 }
 
 @keyframes orbit-spin {
