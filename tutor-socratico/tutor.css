@@ -1,0 +1,468 @@
+/* Estilos do Tutor Socrático. Identidade própria — clara, arredondada e
+   amigável. Importa só os tokens locais (--ts-*), nada da Cafeína Dev. */
+@import './tokens.css';
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---- Layout ---- */
+.tutor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 46rem;
+  height: 100dvh;
+  margin: 0 auto;
+}
+
+/* ---- Cabeçalho ---- */
+.tutor__header {
+  display: flex;
+  align-items: center;
+  gap: var(--ts-space-16);
+  padding: var(--ts-space-12) var(--ts-space-24);
+  background: var(--ts-color-surface);
+  border-bottom: 1px solid var(--ts-color-border);
+}
+
+.tutor__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--ts-space-8);
+}
+
+.tutor__brand-mark {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.tutor__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: var(--ts-weight-bold);
+}
+
+.tutor__status {
+  display: flex;
+  align-items: center;
+  gap: var(--ts-space-8);
+  min-width: 0;
+  margin: 0 auto 0 0;
+  font-size: 0.8125rem;
+  color: var(--ts-color-text-muted);
+}
+
+.tutor__status-dot {
+  flex-shrink: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: var(--ts-radius-pill);
+  background: var(--ts-color-text-muted);
+}
+
+.tutor__status-dot[data-state='ok'] {
+  background: var(--ts-color-success);
+}
+
+.tutor__status-dot[data-state='error'] {
+  background: var(--ts-color-danger);
+}
+
+.tutor__status-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- Botões ---- */
+.tutor__btn {
+  flex-shrink: 0;
+  padding: var(--ts-space-8) var(--ts-space-16);
+  border-radius: var(--ts-radius-pill);
+  font-weight: var(--ts-weight-semibold);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.tutor__btn--primary {
+  background: var(--ts-color-primary);
+  border: 2px solid var(--ts-color-primary);
+  color: var(--ts-color-text-on-primary);
+}
+
+.tutor__btn--primary:hover {
+  background: var(--ts-color-primary-hover);
+  border-color: var(--ts-color-primary-hover);
+}
+
+.tutor__btn--ghost {
+  background: transparent;
+  border: 2px solid var(--ts-color-border);
+  color: var(--ts-color-text-muted);
+}
+
+.tutor__btn--ghost:hover {
+  border-color: var(--ts-color-primary);
+  color: var(--ts-color-primary);
+}
+
+.tutor__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Log de mensagens ---- */
+.tutor__log {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ts-space-16);
+  padding: var(--ts-space-24);
+}
+
+/* ---- Estado vazio ---- */
+.tutor__empty {
+  margin: auto;
+  max-width: 28rem;
+  text-align: center;
+}
+
+.tutor__empty-title {
+  margin: 0 0 var(--ts-space-8);
+  font-size: 1.375rem;
+  font-weight: var(--ts-weight-bold);
+}
+
+.tutor__empty-text {
+  margin: 0;
+  color: var(--ts-color-text-muted);
+  line-height: var(--ts-line-relaxed);
+}
+
+/* ---- Mensagens ---- */
+.tutor__msg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ts-space-4);
+  max-width: 85%;
+}
+
+.tutor__msg--user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.tutor__msg--tutor {
+  align-self: flex-start;
+}
+
+.tutor__msg-role {
+  margin: 0;
+  padding: 0 var(--ts-space-8);
+  font-size: 0.6875rem;
+  font-weight: var(--ts-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ts-color-text-muted);
+}
+
+.tutor__msg-body {
+  padding: var(--ts-space-12) var(--ts-space-16);
+  line-height: var(--ts-line-relaxed);
+  overflow-wrap: break-word;
+}
+
+.tutor__msg--user .tutor__msg-body {
+  background: var(--ts-color-primary);
+  color: var(--ts-color-text-on-primary);
+  border-radius: var(--ts-radius-bubble) var(--ts-radius-bubble) 0.35rem var(--ts-radius-bubble);
+  white-space: pre-wrap;
+}
+
+.tutor__msg--tutor .tutor__msg-body {
+  background: var(--ts-color-surface);
+  border: 1px solid var(--ts-color-border);
+  border-radius: var(--ts-radius-bubble) var(--ts-radius-bubble) var(--ts-radius-bubble) 0.35rem;
+  box-shadow: var(--ts-shadow-bubble);
+}
+
+/* ---- Prosa do tutor (markdown) ---- */
+.tutor__prose > :first-child {
+  margin-top: 0;
+}
+
+.tutor__prose > :last-child {
+  margin-bottom: 0;
+}
+
+.tutor__prose p {
+  margin: 0 0 var(--ts-space-8);
+}
+
+.tutor__prose ul,
+.tutor__prose ol {
+  margin: 0 0 var(--ts-space-8);
+  padding-left: var(--ts-space-24);
+}
+
+.tutor__prose li {
+  margin: var(--ts-space-4) 0;
+}
+
+.tutor__prose strong {
+  font-weight: var(--ts-weight-bold);
+}
+
+.tutor__prose code {
+  padding: 0.1em 0.35em;
+  background: var(--ts-color-bg);
+  border-radius: var(--ts-radius-sm);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.tutor__prose a {
+  color: var(--ts-color-primary);
+  text-underline-offset: 2px;
+}
+
+/* segundo segmento de prosa, depois de um gráfico ou cálculo */
+.tutor__prose + .tutor__prose {
+  margin-top: var(--ts-space-8);
+}
+
+/* ---- Gráfico ---- */
+.tutor__plot {
+  width: 100%;
+  margin: var(--ts-space-12) 0;
+  background: #ffffff;
+  border: 1px solid var(--ts-color-border);
+  border-radius: var(--ts-radius-md);
+}
+
+.tutor__interrupted {
+  margin: var(--ts-space-8) 0 0;
+  color: var(--ts-color-text-muted);
+  font-size: 0.8125rem;
+  font-style: italic;
+}
+
+/* ---- Erro ---- */
+.tutor__error {
+  align-self: center;
+  max-width: 90%;
+  margin: 0;
+  padding: var(--ts-space-12) var(--ts-space-16);
+  background: #fdecef;
+  border: 1px solid var(--ts-color-danger);
+  border-radius: var(--ts-radius-md);
+  color: var(--ts-color-text);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+/* ---- Indicador "pensando / conferindo" ---- */
+.tutor__indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--ts-space-8);
+  padding: 0 var(--ts-space-24) var(--ts-space-8);
+  color: var(--ts-color-text-muted);
+  font-size: 0.875rem;
+}
+
+.tutor__dots {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.tutor__dots span {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--ts-color-primary);
+  animation: ts-bounce 1.2s ease-in-out infinite;
+}
+
+.tutor__dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.tutor__dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes ts-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-0.3rem);
+    opacity: 1;
+  }
+}
+
+/* ---- Composer ---- */
+.tutor__composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ts-space-8);
+  padding: var(--ts-space-16) var(--ts-space-24) var(--ts-space-24);
+  background: var(--ts-color-surface);
+  border-top: 1px solid var(--ts-color-border);
+}
+
+.tutor__input {
+  width: 100%;
+  min-height: 3rem;
+  max-height: 40dvh;
+  padding: var(--ts-space-12) var(--ts-space-16);
+  resize: none;
+  overflow-y: auto;
+  color: var(--ts-color-text);
+  background: var(--ts-color-bg);
+  border: 2px solid var(--ts-color-border);
+  border-radius: var(--ts-radius-md);
+  line-height: var(--ts-line-normal);
+  transition: border-color 0.16s ease;
+}
+
+.tutor__input::placeholder {
+  color: var(--ts-color-text-muted);
+}
+
+.tutor__input:hover:not(:disabled) {
+  border-color: var(--ts-color-primary);
+}
+
+.tutor__input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tutor__composer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ts-space-16);
+}
+
+.tutor__hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ts-color-text-muted);
+}
+
+.tutor__composer-actions {
+  display: flex;
+  gap: var(--ts-space-8);
+}
+
+/* ---- Tela de carregamento (Pyodide) ---- */
+.tutor__boot {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--ts-space-24);
+  background: var(--ts-color-bg);
+}
+
+.tutor__boot-card {
+  max-width: 26rem;
+  padding: var(--ts-space-32);
+  background: var(--ts-color-surface);
+  border: 1px solid var(--ts-color-border);
+  border-radius: var(--ts-radius-lg);
+  box-shadow: var(--ts-shadow-card);
+  text-align: center;
+}
+
+.tutor__boot-mark {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.tutor__boot-title {
+  margin: var(--ts-space-16) 0 var(--ts-space-8);
+  font-size: 1.25rem;
+  font-weight: var(--ts-weight-bold);
+}
+
+.tutor__boot-text {
+  margin: 0;
+  color: var(--ts-color-text-muted);
+  line-height: var(--ts-line-relaxed);
+}
+
+.tutor__boot[data-state='error'] .tutor__boot-card {
+  border-color: var(--ts-color-danger);
+}
+
+/* ---- Utilitário para leitores de tela ---- */
+.tutor__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Responsivo ---- */
+@media (max-width: 640px) {
+  .tutor__header {
+    flex-wrap: wrap;
+    padding: var(--ts-space-12) var(--ts-space-16);
+  }
+
+  .tutor__status {
+    order: 1;
+    flex-basis: 100%;
+    margin: 0;
+  }
+
+  .tutor__log {
+    padding: var(--ts-space-16);
+  }
+
+  .tutor__indicator {
+    padding-left: var(--ts-space-16);
+    padding-right: var(--ts-space-16);
+  }
+
+  .tutor__composer {
+    padding: var(--ts-space-12) var(--ts-space-16) var(--ts-space-16);
+  }
+
+  .tutor__msg {
+    max-width: 95%;
+  }
+}
+
+/* ---- Movimento reduzido ---- */
+@media (prefers-reduced-motion: reduce) {
+  .tutor__btn,
+  .tutor__input {
+    transition: none;
+  }
+
+  .tutor__dots span {
+    animation: none;
+    opacity: 0.7;
+  }
+}

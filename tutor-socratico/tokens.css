@@ -1,0 +1,120 @@
+/* Design tokens do Tutor Socrático — identidade PRÓPRIA, lúdica e amigável.
+   Não tem relação com a Cafeína Dev: não importa src/shared/tokens.css, não
+   usa os tokens --cd-*, a fonte Friends nem o par escuro+amarelo. */
+
+/* Tipografia arredondada: ui-rounded entrega a SF Pro Rounded no macOS sem
+   nenhuma webfont; a pilha cai para Baloo 2 / Trebuchet em outros sistemas. */
+
+:root {
+  /* Marca — índigo amigável + acentos quentes */
+  --ts-color-primary: #6c5ce7;
+  --ts-color-primary-hover: #5a4bd4;
+  --ts-color-accent: #ff9f43;
+  --ts-color-success: #20bf6b;
+  --ts-color-danger: #eb3b5a;
+
+  /* Superfícies claras */
+  --ts-color-bg: #f5f3ff;
+  --ts-color-surface: #ffffff;
+  --ts-color-surface-user: #ede9fe;
+  --ts-color-border: #e4e0f5;
+
+  /* Texto */
+  --ts-color-text: #2d2a45;
+  --ts-color-text-muted: #5b5773;
+  --ts-color-text-on-primary: #ffffff;
+
+  /* Tipografia — arredondada (ui-rounded cobre o macOS sem a webfont) */
+  --ts-font-family: ui-rounded, 'Baloo 2', 'Trebuchet MS', system-ui, sans-serif;
+  --ts-weight-regular: 400;
+  --ts-weight-semibold: 600;
+  --ts-weight-bold: 700;
+  --ts-line-tight: 1.2;
+  --ts-line-normal: 1.5;
+  --ts-line-relaxed: 1.65;
+
+  /* Espaçamento */
+  --ts-space-4: 0.25rem;
+  --ts-space-8: 0.5rem;
+  --ts-space-12: 0.75rem;
+  --ts-space-16: 1rem;
+  --ts-space-24: 1.5rem;
+  --ts-space-32: 2rem;
+  --ts-space-48: 3rem;
+
+  /* Cantos generosos */
+  --ts-radius-sm: 0.5rem;
+  --ts-radius-md: 1rem;
+  --ts-radius-lg: 1.5rem;
+  --ts-radius-bubble: 1.25rem;
+  --ts-radius-pill: 999px;
+
+  /* Sombras suaves */
+  --ts-shadow-card: 0 6px 20px rgba(108, 92, 231, 0.14);
+  --ts-shadow-bubble: 0 2px 10px rgba(45, 42, 69, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ts-color-bg);
+  color: var(--ts-color-text);
+  color-scheme: light;
+  font-family: var(--ts-font-family);
+  line-height: var(--ts-line-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ts-color-bg);
+  color: var(--ts-color-text);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--ts-color-primary);
+}
+
+:focus-visible {
+  outline: 3px solid var(--ts-color-primary);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--ts-color-primary);
+  color: var(--ts-color-text-on-primary);
+}
+
+.skip-link {
+  position: fixed;
+  inset: 0.75rem auto auto 0.75rem;
+  z-index: 60;
+  padding: var(--ts-space-12) var(--ts-space-16);
+  background: var(--ts-color-primary);
+  color: var(--ts-color-text-on-primary);
+  font-weight: var(--ts-weight-semibold);
+  border-radius: var(--ts-radius-pill);
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
