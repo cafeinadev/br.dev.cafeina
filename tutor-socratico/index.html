@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tutor de Matemática</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Tutor socrático de matemática — aprenda resolvendo, com um professor que faz as perguntas certas."
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#6c5ce7" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" />
+    <script src="/pyodide/pyodide.js" defer></script>
+    <script type="module" src="/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#tutor-log">Pular para a conversa</a>
+
+    <div class="tutor">
+      <header class="tutor__header">
+        <div class="tutor__brand">
+          <span class="tutor__brand-mark" aria-hidden="true">🎓</span>
+          <h1 class="tutor__title">Tutor de Matemática</h1>
+        </div>
+        <p class="tutor__status">
+          <span
+            class="tutor__status-dot"
+            data-status-dot
+            data-state="checking"
+            aria-hidden="true"
+          ></span>
+          <span class="tutor__status-text" data-status-text>Conectando…</span>
+        </p>
+        <button type="button" class="tutor__btn tutor__btn--ghost" data-new-chat>
+          Nova conversa
+        </button>
+      </header>
+
+      <main
+        id="tutor-log"
+        class="tutor__log"
+        tabindex="-1"
+        aria-label="Conversa com o tutor"
+        aria-live="polite"
+        aria-atomic="false"
+        aria-busy="false"
+        data-log
+      ></main>
+
+      <div class="tutor__indicator" data-indicator hidden>
+        <span class="tutor__dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span data-indicator-text>Pensando…</span>
+      </div>
+
+      <form class="tutor__composer" data-composer aria-label="Enviar mensagem">
+        <label class="tutor__sr-only" for="tutor-input">Sua mensagem para o tutor</label>
+        <textarea
+          id="tutor-input"
+          class="tutor__input"
+          data-input
+          rows="1"
+          placeholder="Escreva o problema ou o que você já tentou…"
+          aria-describedby="tutor-hint"
+          disabled
+        ></textarea>
+        <div class="tutor__composer-row">
+          <p id="tutor-hint" class="tutor__hint">Enter envia · Shift+Enter quebra linha</p>
+          <div class="tutor__composer-actions">
+            <button type="button" class="tutor__btn tutor__btn--ghost" data-stop hidden>
+              Parar
+            </button>
+            <button type="submit" class="tutor__btn tutor__btn--primary" data-send disabled>
+              Enviar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="tutor__boot" data-boot>
+      <div class="tutor__boot-card">
+        <span class="tutor__boot-mark" aria-hidden="true">🎓</span>
+        <p class="tutor__boot-title">Preparando o tutor…</p>
+        <p class="tutor__boot-text" data-boot-text>
+          Carregando o ambiente de cálculo. Na primeira vez isso leva alguns segundos.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

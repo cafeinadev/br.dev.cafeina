@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>IA · Cafeína Dev</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Chat local com o modelo Gemma via Ollama, na identidade visual da Cafeína Dev."
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#191b16" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" type="image/png" href="/brand/icone-amarelo.png" />
+    <link rel="apple-touch-icon" href="/brand/icone-amarelo.png" />
+    <script type="module" src="/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#chat-log">Pular para a conversa</a>
+
+    <div class="chat">
+      <header class="chat__header">
+        <h1 class="chat__sr-only">Chat com a IA da Cafeína Dev</h1>
+        <a class="chat__brand" href="https://cafeina.dev.br/" aria-label="Cafeína Dev, início">
+          <img src="/brand/logo-horizontal-branco.png" alt="Cafeína Dev" width="150" height="23" />
+        </a>
+        <p class="chat__status">
+          <span
+            class="chat__status-dot"
+            data-status-dot
+            data-state="checking"
+            aria-hidden="true"
+          ></span>
+          <span class="chat__status-text" data-status-text>Conectando ao Ollama…</span>
+        </p>
+        <button type="button" class="ds-btn ds-btn--secondary chat__new" data-new-chat>
+          Nova conversa
+        </button>
+      </header>
+
+      <div class="chat__controls">
+        <div class="chat__control">
+          <label for="sel-modelo">Modelo</label>
+          <select id="sel-modelo" class="chat__select" data-model></select>
+        </div>
+        <div class="chat__control">
+          <label for="sel-persona">Persona</label>
+          <select id="sel-persona" class="chat__select" data-persona></select>
+        </div>
+        <div class="chat__control">
+          <label for="sel-esforco">Esforço</label>
+          <select id="sel-esforco" class="chat__select" data-effort></select>
+        </div>
+      </div>
+
+      <main
+        id="chat-log"
+        class="chat__log"
+        tabindex="-1"
+        aria-label="Conversa com a IA"
+        aria-live="polite"
+        aria-atomic="false"
+        aria-busy="false"
+        data-log
+      ></main>
+
+      <div class="chat__thinking" data-thinking hidden>
+        <img
+          class="chat__thinking-raio"
+          data-thinking-raio
+          src="/brand/logos/raio.png"
+          alt=""
+          width="20"
+          height="28"
+        />
+        <span>Cafeína Dev está pensando…</span>
+      </div>
+
+      <form class="chat__composer" data-composer aria-label="Enviar mensagem">
+        <label class="chat__sr-only" for="chat-input">Sua mensagem para a IA</label>
+        <textarea
+          id="chat-input"
+          class="chat__input"
+          data-input
+          rows="1"
+          placeholder="Pergunte sobre engenharia, arquitetura, código…"
+          aria-describedby="composer-hint"
+        ></textarea>
+        <div class="chat__composer-row">
+          <p id="composer-hint" class="chat__hint">Enter envia · Shift+Enter quebra linha</p>
+          <div class="chat__composer-actions">
+            <button type="button" class="ds-btn ds-btn--secondary" data-stop hidden>Parar</button>
+            <button type="submit" class="ds-btn ds-btn--primary" data-send>Enviar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <output class="ds__toast" data-toast role="status" hidden></output>
+  </body>
+</html>

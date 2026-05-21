@@ -7,12 +7,20 @@
   "scripts": {
     "dev": "APP=landing vite --port 4200",
     "dev:design-system": "APP=design-system vite --port 4300",
+    "dev:ia": "APP=ia vite --port 4400",
+    "dev:tutor": "APP=tutor-socratico vite --port 4500",
     "build": "APP=landing vite build",
     "build:design-system": "APP=design-system vite build",
+    "build:ia": "APP=ia vite build",
+    "build:tutor": "APP=tutor-socratico vite build",
+    "setup:tutor": "node tutor-socratico/setup-pyodide.mjs",
     "preview": "APP=landing vite preview"
   },
   "dependencies": {
-    "gsap": "^3.13.0"
+    "dompurify": "^3.4.5",
+    "gsap": "^3.13.0",
+    "marked": "^18.0.4",
+    "pyodide": "^0.29.4"
   },
   "devDependencies": {
     "prettier": "^3.8.1",

@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# Pyodide runtime do tutor-socratico (baixado por: npm run setup:tutor)
+/tutor-socratico/public/pyodide
+
 # Node
 /node_modules
 npm-debug.log
