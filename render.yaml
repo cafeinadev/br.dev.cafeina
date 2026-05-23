@@ -1,38 +1,18 @@
 version: "1"
 
+# Deploy do Penpot em arquitetura mista:
+# - Frontend (SPA estática): Cloudflare Pages (ver pages/penpot/)
+# - Backend + Exporter: Render Web Services (Free)
+# - Postgres: Supabase (externo)
+# - Redis: Upstash (externo, rediss://)
+# - Storage S3: Cloudflare R2 (externo)
+#
+# Variáveis com `sync: false` precisam ser preenchidas manualmente no painel
+# Render após o primeiro deploy (Settings > Environment).
+
 services:
   - type: web
-    name: penpot-frontend-fixed
-    runtime: docker
-    repo: https://github.com/cafeinadev/br.dev.cafeina
-    branch: main
-    rootDir: render/penpot/frontend
-    region: virginia
-    plan: free
-    autoDeployTrigger: commit
-    healthCheckPath: /
-    envVars:
-      - key: PORT
-        value: "8080"
-      - key: PENPOT_PUBLIC_URI
-        value: https://penpot.cafeina.dev.br
-      - key: PENPOT_BACKEND_URI
-        value: https://penpot-backend-fixed.onrender.com
-      - key: PENPOT_EXPORTER_URI
-        value: https://penpot-backend-fixed.onrender.com
-      - key: PENPOT_NITRATE_URI
-        value: https://penpot-backend-fixed.onrender.com
-      - key: PENPOT_MCP_URI
-        value: https://penpot-backend-fixed.onrender.com
-      - key: PENPOT_MCP_URI_WS
-        value: https://penpot-backend-fixed.onrender.com
-      - key: PENPOT_FLAGS
-        value: disable-registration enable-secure-session-cookies
-      - key: PENPOT_HTTP_SERVER_MAX_BODY_SIZE
-        value: "367001600"
-
-  - type: web
-    name: penpot-backend-fixed
+    name: penpot-backend
     runtime: docker
     repo: https://github.com/cafeinadev/br.dev.cafeina
     branch: main
@@ -52,8 +32,10 @@ services:
         value: "6060"
       - key: JAVA_TOOL_OPTIONS
         value: -Djava.net.preferIPv4Stack=true
+      # Free plan tem 512MB de RAM; JVM apertada — vai falhar em uso real.
+      # Para uso sério, subir Backend para Starter ($7) e elevar -Xmx para 384m+.
       - key: JVM_OPTS
-        value: -Xms64m -Xmx192m -XX:ReservedCodeCacheSize=32m
+        value: -Xms64m -Xmx256m -XX:ReservedCodeCacheSize=32m
       - key: PENPOT_DATABASE_MIN_POOL_SIZE
         value: "0"
       - key: PENPOT_DATABASE_MAX_POOL_SIZE
@@ -61,26 +43,27 @@ services:
       - key: PENPOT_PUBLIC_URI
         value: https://penpot.cafeina.dev.br
       - key: PENPOT_FLAGS
-        value: disable-registration enable-secure-session-cookies disable-prepl-server
+        value: disable-registration enable-secure-session-cookies disable-prepl-server disable-telemetry
+      # Chave de assinatura de sessão; backend e exporter precisam compartilhar o
+      # mesmo valor. Render gera no primeiro deploy; após isso é fixa.
       - key: PENPOT_SECRET_KEY
         generateValue: true
+      # Conexões externas — preencher manualmente no painel Render.
       - key: PENPOT_REDIS_URI
-        fromService:
-          type: keyvalue
-          name: penpot-redis
-          property: connectionString
+        sync: false
       - key: PENPOT_DATABASE_URI
         sync: false
       - key: PENPOT_DATABASE_USERNAME
         sync: false
       - key: PENPOT_DATABASE_PASSWORD
         sync: false
+      # Cloudflare R2 é S3-compatível. Endpoint é https://<account>.r2.cloudflarestorage.com
       - key: PENPOT_OBJECTS_STORAGE_BACKEND
         value: s3
       - key: PENPOT_OBJECTS_STORAGE_S3_ENDPOINT
         sync: false
       - key: PENPOT_OBJECTS_STORAGE_S3_REGION
-        value: us-east-1
+        value: auto
       - key: PENPOT_OBJECTS_STORAGE_S3_BUCKET
         sync: false
       - key: AWS_ACCESS_KEY_ID
@@ -96,9 +79,38 @@ services:
       - key: PENPOT_HTTP_SERVER_MAX_BODY_SIZE
         value: "367001600"
 
-  - type: keyvalue
-    name: penpot-redis
+  - type: web
+    name: penpot-exporter
+    runtime: docker
+    repo: https://github.com/cafeinadev/br.dev.cafeina
+    branch: main
+    rootDir: render/penpot/exporter
     region: virginia
     plan: free
-    maxmemoryPolicy: volatile-lfu
-    ipAllowList: []
+    autoDeployTrigger: commit
+    # Exporter não tem /readyz; deixar sem healthCheckPath usa o default de bind no $PORT.
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: PENPOT_HTTP_SERVER_PORT
+        value: "10000"
+      - key: PENPOT_HTTP_SERVER_HOST
+        value: 0.0.0.0
+      - key: PENPOT_INTERNAL_HTTP_PORT
+        value: "6061"
+      # Exporter precisa do mesmo PENPOT_SECRET_KEY do backend (token auth interno).
+      # Copiar manualmente no painel após o primeiro deploy do backend.
+      - key: PENPOT_SECRET_KEY
+        sync: false
+      # PENPOT_PUBLIC_URI é a URL que o exporter usa pra abrir o Penpot via Playwright
+      # internamente para gerar exports. Aponta para o frontend público.
+      - key: PENPOT_PUBLIC_URI
+        value: https://penpot.cafeina.dev.br
+      - key: PENPOT_REDIS_URI
+        sync: false
+      - key: PENPOT_TELEMETRY_OPT_OUT
+        value: "true"
+      # Chromium não cabe em 512MB com folga; exports grandes vão crashar (OOM).
+      # Para uso real, subir exporter para Standard ($25, 2GB) ou Starter ($7) com cautela.
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=256
