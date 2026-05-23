@@ -1,0 +1,24 @@
+# Headers de segurança e cache para a SPA do Penpot servida no Cloudflare Pages.
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# Assets estáticos com hash → cache longo
+/js/*
+  Cache-Control: public, max-age=604800, immutable
+
+/css/*
+  Cache-Control: public, max-age=604800, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=604800, immutable
+
+/images/*
+  Cache-Control: public, max-age=604800, immutable
+
+# index.html e demais HTMLs → sempre revalidar
+/*.html
+  Cache-Control: no-store, no-cache, max-age=0
